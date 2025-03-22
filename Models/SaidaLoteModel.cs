@@ -1,8 +1,8 @@
 ﻿namespace CicloStock.Models
 {
-    public class EntradaLoteModel
+    public class SaidaLoteModel
     {
-        public int EntradaLoteId { get; set; }
+        public int SaidaLoteId { get; set; }
         public string Descricao { get; set; }
         public Enum Situacao { get; set; }
         public DateTime DataCriacao { get; set; }
