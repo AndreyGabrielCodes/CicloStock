@@ -8,12 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Estoque\" />
-    <Folder Include="Gerencial\" />
+    <Folder Include="Logs\" />
+    <Folder Include="XMLs\" />
     <Folder Include="Processos\" />
-    <Folder Include="Processos\Saida\" />
     <Folder Include="Mapping\" />
-    <Folder Include="Processos\Entrada\" />
   </ItemGroup>
 
 </Project>

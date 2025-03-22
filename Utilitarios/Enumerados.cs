@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CicloStock.Utilitarios
+﻿namespace CicloStock.Utilitarios
 {
     public class Enumerados
     {
@@ -37,11 +31,21 @@ namespace CicloStock.Utilitarios
             Cancelado = 3,
         }
         
-        public enum Categoria : short
+        public enum CategoriaProduto : short
         {
             Pereciveis = 1,
             NaoPereciveis = 2,
-
+        }
+        public enum SituacaoProduto : short
+        {
+            Inativo = 0,
+            Ativo = 1,
+        } 
+        public enum SituacaoLocacao : short
+        {
+            Inativo = 0,
+            Principal = 1,
+            Alternativo = 2,
         }
     }
 }
