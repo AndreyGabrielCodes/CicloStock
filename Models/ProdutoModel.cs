@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.Marshalling;
+﻿using CicloStock.Utilitarios;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace CicloStock.Models
 {
@@ -6,8 +7,7 @@ namespace CicloStock.Models
     {
         public int ProdutoId { get; set; }
         public string Descricao { get; set; }
-        public Enum Situacao { get; set; }
-        public Enum Categoria { get; set; }
+        public Enumerados Situacao { get; set; }
         public string CodigoBarras { get; set; }
     }
 }

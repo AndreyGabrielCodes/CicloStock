@@ -1,18 +1,17 @@
 ﻿using CicloStock.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace CicloStock.Mapping
 {
-    public class EntradaMap : IEntityTypeConfiguration<EntradaModel>
+    public class EntradaLoteMap : IEntityTypeConfiguration<EntradaLoteModel>
     {
-        public void Configure(EntityTypeBuilder<EntradaModel> builder)
+        public void Configure(EntityTypeBuilder<EntradaLoteModel> builder)
         {
-            builder.ToTable("Entrada");
+            builder.ToTable("EntradaLote");
 
-            builder.HasKey(x => x.EntradaId);
-            builder.Property(x => x.EntradaId)
+            builder.HasKey(x => x.EntradaLoteId);
+            builder.Property(x => x.EntradaLoteId)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
 
@@ -24,7 +23,7 @@ namespace CicloStock.Mapping
             builder.Property(x => x.Situacao)
                 .IsRequired()
                 .HasColumnType("INTEGER");
-
+;
             builder.Property(x => x.DataInicio)
                 .HasColumnType("DATETIME")
                 .HasDefaultValue(DateTime.Now);
@@ -32,6 +31,8 @@ namespace CicloStock.Mapping
             builder.Property(x => x.DataFim)
                 .HasColumnType("DATETIME");
 
+            builder.Property(x => x.Inconsistencia)
+                .HasColumnType("INTEGER");
         }
     }
 }

@@ -30,12 +30,6 @@
             Concluido = 2,
             Cancelado = 3,
         }
-        
-        public enum CategoriaProduto : short
-        {
-            Pereciveis = 1,
-            NaoPereciveis = 2,
-        }
         public enum SituacaoProduto : short
         {
             Inativo = 0,
