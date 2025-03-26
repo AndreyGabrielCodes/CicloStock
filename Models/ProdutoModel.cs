@@ -7,6 +7,7 @@ namespace CicloStock.Models
     {
         public int ProdutoId { get; set; }
         public string Descricao { get; set; }
+        public List<LocacaoModel> Locacoes { get; } = new List<LocacaoModel> { };
         public Enumerados Situacao { get; set; }
         public string CodigoBarras { get; set; }
     }
