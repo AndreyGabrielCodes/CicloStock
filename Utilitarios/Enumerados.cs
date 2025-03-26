@@ -41,5 +41,13 @@
             Principal = 1,
             Alternativo = 2,
         }
+
+        public enum Inconsistencia : short
+        {
+            ProdutoTrocado = 1,
+            ProdutoAvariado = 2,
+            SobraDeProduto = 3,
+            FaltaDeProduto = 4,
+        }
     }
 }
