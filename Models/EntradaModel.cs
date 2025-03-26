@@ -6,6 +6,7 @@ namespace CicloStock.Models
     {
         public int EntradaId { get; set; }
         public string Descricao { get; set; }
+        public List<EntradaLoteModel> EntradaLotes { get; } = new List<EntradaLoteModel>();
         public Enumerados Situacao { get; set; }
         public DateTime? DataInicio { get; set; }
         public DateTime? DataFim { get; set; }

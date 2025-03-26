@@ -31,7 +31,6 @@ namespace CicloStock.Mapping
 
             builder.Property(x => x.DataFim)
                 .HasColumnType("DATETIME");
-
         }
     }
 }

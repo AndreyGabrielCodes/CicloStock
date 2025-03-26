@@ -33,6 +33,11 @@ namespace CicloStock.Mapping
 
             builder.Property(x => x.Inconsistencia)
                 .HasColumnType("INTEGER");
+
+            builder.HasOne(x => x.Entrada)
+                .WithMany(x => x.EntradaLotes)
+                .HasForeignKey(x =>x.Entrada)
+                .IsRequired(false);
         }
     }
 }
