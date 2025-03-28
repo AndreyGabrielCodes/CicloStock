@@ -26,8 +26,7 @@ namespace CicloStock.Mapping
                 .HasColumnType("INTEGER");
 
             builder.Property(x => x.DataInicio)
-                .HasColumnType("DATETIME")
-                .HasDefaultValue(DateTime.Now);
+                .HasColumnType("DATETIME");
 
             builder.Property(x => x.DataFim)
                 .HasColumnType("DATETIME");
