@@ -13,11 +13,12 @@ namespace CicloStock.Mapping
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=CicloStock;User ID=sa;Password=1q2w3e4r@#$");
+            optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=CicloStock;User ID=sqlserver;Password=sqlserver;Trusted_Connection=False;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AI");
             modelBuilder.ApplyConfiguration(new EntradaMap());
             modelBuilder.ApplyConfiguration(new EntradaLoteMap());
             modelBuilder.ApplyConfiguration(new ProdutoMap());
