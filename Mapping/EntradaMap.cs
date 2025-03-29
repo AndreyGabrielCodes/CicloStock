@@ -26,10 +26,10 @@ namespace CicloStock.Mapping
                 .HasColumnType("INTEGER");
 
             builder.Property(x => x.DataInicio)
-                .HasColumnType("DATETIME");
+                .HasColumnType("DATE");
 
             builder.Property(x => x.DataFim)
-                .HasColumnType("DATETIME");
+                .HasColumnType("DATE");
         }
     }
 }
