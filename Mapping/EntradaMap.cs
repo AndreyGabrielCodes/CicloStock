@@ -23,13 +23,13 @@ namespace CicloStock.Mapping
 
             builder.Property(x => x.Situacao)
                 .IsRequired()
-                .HasColumnType("INTEGER");
+                .HasColumnType("INT");
 
             builder.Property(x => x.DataInicio)
-                .HasColumnType("DATE");
+                .HasColumnType("DATETIME");
 
             builder.Property(x => x.DataFim)
-                .HasColumnType("DATE");
+                .HasColumnType("DATETIME");
         }
     }
 }
