@@ -48,8 +48,8 @@ namespace CicloStock.Migrations
                     b.Property<short?>("Inconsistencia")
                         .HasColumnType("INTEGER");
 
-                    b.Property<short>("Situacao")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("Situacao")
+                        .HasColumnType("INT");
 
                     b.HasKey("EntradaLoteId");
 
@@ -77,8 +77,8 @@ namespace CicloStock.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<short>("Situacao")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("Situacao")
+                        .HasColumnType("INT");
 
                     b.HasKey("EntradaId");
 
@@ -106,8 +106,8 @@ namespace CicloStock.Migrations
                         .HasColumnType("INT")
                         .HasDefaultValue(0);
 
-                    b.Property<short>("Situacao")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("Situacao")
+                        .HasColumnType("INT");
 
                     b.HasKey("LocacaoId");
 
@@ -134,8 +134,8 @@ namespace CicloStock.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<short>("Situacao")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("Situacao")
+                        .HasColumnType("INT");
 
                     b.HasKey("ProdutoId");
 

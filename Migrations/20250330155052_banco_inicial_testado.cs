@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CicloStock.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class banco_inicial_testado : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace CicloStock.Migrations
                     EntradaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "VARCHAR(40)", maxLength: 40, nullable: false),
-                    Situacao = table.Column<short>(type: "INTEGER", nullable: false),
+                    Situacao = table.Column<int>(type: "INT", nullable: false),
                     DataInicio = table.Column<DateTime>(type: "DATETIME", nullable: true),
                     DataFim = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
@@ -34,7 +34,7 @@ namespace CicloStock.Migrations
                     ProdutoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "VARCHAR(20)", maxLength: 20, nullable: false),
-                    Situacao = table.Column<short>(type: "INTEGER", nullable: false),
+                    Situacao = table.Column<int>(type: "INT", nullable: false),
                     CodigoBarras = table.Column<string>(type: "VARCHAR(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
@@ -50,7 +50,7 @@ namespace CicloStock.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EntradaId = table.Column<int>(type: "int", nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR(40)", maxLength: 40, nullable: false),
-                    Situacao = table.Column<short>(type: "INTEGER", nullable: false),
+                    Situacao = table.Column<int>(type: "INT", nullable: false),
                     DataInicio = table.Column<DateTime>(type: "DATETIME", nullable: true),
                     DataFim = table.Column<DateTime>(type: "DATETIME", nullable: true),
                     Inconsistencia = table.Column<short>(type: "INTEGER", nullable: true)
@@ -73,7 +73,7 @@ namespace CicloStock.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProdutoId = table.Column<int>(type: "int", nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR(40)", maxLength: 40, nullable: false),
-                    Situacao = table.Column<short>(type: "INTEGER", nullable: false),
+                    Situacao = table.Column<int>(type: "INT", nullable: false),
                     QuantidadeProduto = table.Column<int>(type: "INT", nullable: true, defaultValue: 0)
                 },
                 constraints: table =>
