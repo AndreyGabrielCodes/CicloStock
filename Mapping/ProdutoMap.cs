@@ -27,7 +27,7 @@ namespace CicloStock.Mapping
 
             builder.Property(x => x.Situacao)
                 .IsRequired()
-                .HasColumnType("INTEGER");
+                .HasColumnType("INT");
             
             builder.Property(x => x.CodigoBarras)
                 .IsRequired()
