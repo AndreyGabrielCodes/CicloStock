@@ -1,69 +1,62 @@
 ﻿using CicloStock.Mapping;
 using CicloStock.Models;
-using CicloStock.Utilitarios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CicloStock.Operacoes
 {
     public class EntradaOP
     {
         #region Entrada
-        public static void Inserir()
+        public static void Inserir(EntradaModel entrada)
         {
             using (var context = new CicloStockContext())
             {
-                var entrada = new EntradaModel();
-                entrada.Descricao = "teste";
-                entrada.Situacao = Enumerados.SituacaoEntrada.Aberto;
-
-                context.EntradaCXT.Add(entrada);
-                context.SaveChanges();
+                try
+                {
+                    context.EntradaCXT.Add(entrada);
+                    context.SaveChanges();
+                }
+                catch 
+                {
+                    throw new Exception($"Não foi possível inserir o registro");
+                }
             }
         }
 
-        public static void Alterar()
+        public static void Alterar(EntradaModel entrada, EntradaModel entradaNova)
         {
-
+            try
+            {
+                using (var context = new CicloStockContext())
+                {
+                    entrada.Descricao = entradaNova.Descricao;
+                    entrada.Situacao = entradaNova.Situacao;
+                    entrada.DataInicio = entradaNova.DataInicio;
+                    entrada.DataFim = entradaNova.DataFim;   
+                    context.EntradaCXT.Update(entrada);
+                    context.SaveChanges();
+                }
+            }
+            catch
+            {
+                throw new Exception($"Não foi possível alterar");
+            }
         }
 
-        public static void Remover()
+        public static void Remover(EntradaModel entrada)
         {
-
+            try
+            {
+                using (var context = new CicloStockContext())
+                {
+                    context.EntradaCXT.Remove(entrada);
+                    context.SaveChanges();
+                } 
+            }
+            catch
+            {
+                throw new Exception($"Não foi possível remover");
+            }
         }
-
-        public static void Consultar()
-        {
-
-        }
-
-        #endregion
-
-        #region EntradaLote
-
-        public static void InserirLote()
-        {
-
-        }
-
-        public static void AlterarLote()
-        {
-
-        }
-
-        public static void RemoverLote()
-        {
-
-        }
-
-        public static void ConsultarLote()
-        {
-
-        }
-
         #endregion
     }
 }
