@@ -1,11 +1,46 @@
 ﻿using CicloStock.Mapping;
 using CicloStock.Models;
+using CicloStock.Utilitarios;
 
 namespace CicloStock.Operacoes
 {
     public class ProdutoOP
     {
-        #region Produto
+        public static List<ProdutoModel> Visualizar()
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var lista = context.ProdutoCXT.ToList();
+                    return lista;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível visualizar registros");
+                }
+            }
+        }
+
+        public static bool VerificarId(int id)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    //Não é permitido alterar um produto inativo
+                    var lista = context.ProdutoCXT.Where(x => x.ProdutoId == id && x.Situacao == Enumerados.SituacaoProduto.Ativo);
+                    if (lista != null)
+                        return true;
+                    return false;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar o Id");
+                }
+            }
+        }
+        
         public static void Inserir(ProdutoModel produto)
         {
             using (var context = new CicloStockContext())
@@ -56,6 +91,5 @@ namespace CicloStock.Operacoes
                 throw new Exception($"Não foi possível remover");
             }
         }
-        #endregion
     }
 }
