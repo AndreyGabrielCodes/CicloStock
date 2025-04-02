@@ -30,9 +30,6 @@ namespace CicloStock.Mapping
             builder.Property(x => x.DataFim)
                 .HasColumnType("DATETIME");
 
-            builder.Property(x => x.Inconsistencia)
-                .HasColumnType("INTEGER");
-
             builder.HasOne(x => x.Entrada)
                 .WithMany(x => x.EntradaLotes)
                 .IsRequired(false);

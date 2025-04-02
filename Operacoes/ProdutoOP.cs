@@ -31,7 +31,6 @@ namespace CicloStock.Operacoes
                     produto.Descricao = produtoNovo.Descricao;
                     produto.Situacao = produtoNovo.Situacao;
                     produto.Locacoes = produtoNovo.Locacoes;
-                    produto.CodigoBarras = produtoNovo.CodigoBarras;
                     context.ProdutoCXT.Update(produto);
                     context.SaveChanges();
                 }

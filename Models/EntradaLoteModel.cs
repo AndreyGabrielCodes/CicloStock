@@ -10,6 +10,5 @@ namespace CicloStock.Models
         public Enumerados.SituacaoEntradaLote Situacao { get; set; }
         public DateTime? DataInicio { get; set; }
         public DateTime? DataFim { get; set; }
-        public Enumerados.Inconsistencia? Inconsistencia { get; set; }
     }
 }

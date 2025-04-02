@@ -28,12 +28,6 @@ namespace CicloStock.Mapping
             builder.Property(x => x.Situacao)
                 .IsRequired()
                 .HasColumnType("INT");
-            
-            builder.Property(x => x.CodigoBarras)
-                .IsRequired()
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(30);
-
         }
     }
 }
