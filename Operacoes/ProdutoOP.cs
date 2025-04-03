@@ -6,7 +6,25 @@ namespace CicloStock.Operacoes
 {
     public class ProdutoOP
     {
-        public static List<ProdutoModel> Visualizar()
+        public static ProdutoModel RetornarProduto(int id)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var produto = context.ProdutoCXT.Where(x=> Convert.ToInt32(x.ProdutoId) == id).FirstOrDefault();
+                    if (produto == null) 
+                        return null;
+                    return produto;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar registros");
+                }
+            }
+        }
+        
+        public static List<ProdutoModel> ListarProdutos()
         {
             using (var context = new CicloStockContext())
             {
@@ -28,11 +46,11 @@ namespace CicloStock.Operacoes
             {
                 try
                 {
-                    //Não é permitido alterar um produto inativo
-                    var lista = context.ProdutoCXT.Where(x => x.ProdutoId == id && x.Situacao == Enumerados.SituacaoProduto.Ativo);
-                    if (lista != null)
-                        return true;
-                    return false;
+                    var produto = context.ProdutoCXT.Where(x => x.ProdutoId == id && x.Situacao == Enumerados.SituacaoProduto.Ativo).FirstOrDefault();
+                    if (produto == null)
+                        return false;
+
+                    return true;
                 }
                 catch
                 {
@@ -41,7 +59,7 @@ namespace CicloStock.Operacoes
             }
         }
         
-        public static void Inserir(ProdutoModel produto)
+        public static bool Inserir(ProdutoModel produto)
         {
             using (var context = new CicloStockContext())
             {
@@ -55,6 +73,8 @@ namespace CicloStock.Operacoes
                     throw new Exception($"Não foi possível inserir o registro");
                 }
             }
+
+            return true;
         }
 
         public static void Alterar(ProdutoModel produto, ProdutoModel produtoNovo)
@@ -76,12 +96,21 @@ namespace CicloStock.Operacoes
             }
         }
 
-        public static void Remover(ProdutoModel produto)
+        public static void Excluir(ProdutoModel produto)
         {
             try
             {
                 using (var context = new CicloStockContext())
                 {
+                    var produtoEmLote = context.EntradaLoteItemCXT.Where(x => x.Produto == produto).FirstOrDefault();
+                    
+                    if(produtoEmLote != null)
+                    {
+                        produto.Situacao = Enumerados.SituacaoProduto.Inativo;
+                        context.SaveChanges();
+                        throw new Exception("Produto contido em um lote, ele foi inativado");
+                    }
+                        
                     context.ProdutoCXT.Remove(produto);
                     context.SaveChanges();
                 }
@@ -91,5 +120,7 @@ namespace CicloStock.Operacoes
                 throw new Exception($"Não foi possível remover");
             }
         }
+
+
     }
 }

@@ -34,10 +34,10 @@ namespace CicloStock.Views
                             default: throw new Exception();
                         }
                 }
-                catch
+                catch (Exception ex)
                 {
                     Console.Clear();
-                    Console.WriteLine("| Opção ou valor inserido é inválido");
+                    Console.WriteLine($"| ERRO! {ex.Message}");
                     Console.ReadKey();
                 }
             }

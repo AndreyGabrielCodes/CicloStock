@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CicloStock")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9eb5fad0c510ab98b28df5047b3a09cf8838ac2")]
 [assembly: System.Reflection.AssemblyProductAttribute("CicloStock")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CicloStock")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

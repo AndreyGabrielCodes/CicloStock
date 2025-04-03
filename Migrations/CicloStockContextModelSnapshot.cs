@@ -23,6 +23,34 @@ namespace CicloStock.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CicloStock.Models.EntradaLoteItemModel", b =>
+                {
+                    b.Property<int>("EntradaLoteItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EntradaLoteItemId"));
+
+                    b.Property<int>("EntradaLoteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INT")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("EntradaLoteItemId");
+
+                    b.HasIndex("EntradaLoteId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("EntradaLoteItem", (string)null);
+                });
+
             modelBuilder.Entity("CicloStock.Models.EntradaLoteModel", b =>
                 {
                     b.Property<int>("EntradaLoteId")
@@ -44,9 +72,6 @@ namespace CicloStock.Migrations
 
                     b.Property<int>("EntradaId")
                         .HasColumnType("int");
-
-                    b.Property<short?>("Inconsistencia")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Situacao")
                         .HasColumnType("INT");
@@ -124,11 +149,6 @@ namespace CicloStock.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdutoId"));
 
-                    b.Property<string>("CodigoBarras")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("VARCHAR");
-
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -140,6 +160,25 @@ namespace CicloStock.Migrations
                     b.HasKey("ProdutoId");
 
                     b.ToTable("Produto", (string)null);
+                });
+
+            modelBuilder.Entity("CicloStock.Models.EntradaLoteItemModel", b =>
+                {
+                    b.HasOne("CicloStock.Models.EntradaLoteModel", "EntradaLote")
+                        .WithMany("EntradaLoteItens")
+                        .HasForeignKey("EntradaLoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CicloStock.Models.ProdutoModel", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EntradaLote");
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("CicloStock.Models.EntradaLoteModel", b =>
@@ -160,6 +199,11 @@ namespace CicloStock.Migrations
                         .IsRequired();
 
                     b.Navigation("Produto");
+                });
+
+            modelBuilder.Entity("CicloStock.Models.EntradaLoteModel", b =>
+                {
+                    b.Navigation("EntradaLoteItens");
                 });
 
             modelBuilder.Entity("CicloStock.Models.EntradaModel", b =>

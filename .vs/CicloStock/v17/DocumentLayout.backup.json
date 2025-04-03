@@ -1,12 +1,87 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\PROJETOS\\CicloStock\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|c:\\projetos\\ciclostock\\controller\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|solutionrelative:controller\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|c:\\projetos\\ciclostock\\operacoes\\produtoop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|solutionrelative:operacoes\\produtoop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|c:\\projetos\\ciclostock\\views\\produtoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|solutionrelative:views\\produtoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|c:\\projetos\\ciclostock\\mapping\\locacaomap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FBF5FA88-2200-4D0A-8F3F-7B089F1BAB24}|CicloStock.csproj|solutionrelative:mapping\\locacaomap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LocacaoMap.cs",
+              "DocumentMoniker": "C:\\PROJETOS\\CicloStock\\Mapping\\LocacaoMap.cs",
+              "RelativeDocumentMoniker": "Mapping\\LocacaoMap.cs",
+              "ToolTip": "C:\\PROJETOS\\CicloStock\\Mapping\\LocacaoMap.cs",
+              "RelativeToolTip": "Mapping\\LocacaoMap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-03T00:16:56.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProdutoController.cs",
+              "DocumentMoniker": "C:\\PROJETOS\\CicloStock\\Controller\\ProdutoController.cs",
+              "RelativeDocumentMoniker": "Controller\\ProdutoController.cs",
+              "ToolTip": "C:\\PROJETOS\\CicloStock\\Controller\\ProdutoController.cs",
+              "RelativeToolTip": "Controller\\ProdutoController.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAswEEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-02T23:42:49.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProdutoOP.cs",
+              "DocumentMoniker": "C:\\PROJETOS\\CicloStock\\Operacoes\\ProdutoOP.cs",
+              "RelativeDocumentMoniker": "Operacoes\\ProdutoOP.cs",
+              "ToolTip": "C:\\PROJETOS\\CicloStock\\Operacoes\\ProdutoOP.cs",
+              "RelativeToolTip": "Operacoes\\ProdutoOP.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowCQAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-02T09:49:03.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProdutoView.cs",
+              "DocumentMoniker": "C:\\PROJETOS\\CicloStock\\Views\\ProdutoView.cs",
+              "RelativeDocumentMoniker": "Views\\ProdutoView.cs",
+              "ToolTip": "C:\\PROJETOS\\CicloStock\\Views\\ProdutoView.cs",
+              "RelativeToolTip": "Views\\ProdutoView.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAA5wC0AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-02T23:47:27.568Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

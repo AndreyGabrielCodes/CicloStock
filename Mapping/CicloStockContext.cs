@@ -7,6 +7,7 @@ namespace CicloStock.Mapping
     {
         public DbSet<EntradaModel> EntradaCXT { get; set; }
         public DbSet<EntradaLoteModel> EntradaLoteCXT { get; set; }
+        public DbSet<EntradaLoteItemModel> EntradaLoteItemCXT { get; set; }
         public DbSet<LocacaoModel> LocacaoCXT { get; set; }
         public DbSet<ProdutoModel> ProdutoCXT { get; set; }
 
@@ -21,6 +22,7 @@ namespace CicloStock.Mapping
             modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AI");
             modelBuilder.ApplyConfiguration(new EntradaMap());
             modelBuilder.ApplyConfiguration(new EntradaLoteMap());
+            modelBuilder.ApplyConfiguration(new EntradaLoteItemMap());
             modelBuilder.ApplyConfiguration(new ProdutoMap());
             modelBuilder.ApplyConfiguration(new LocacaoMap());
         }
