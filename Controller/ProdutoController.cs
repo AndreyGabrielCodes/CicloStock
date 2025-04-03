@@ -11,15 +11,13 @@ namespace CicloStock.Controller
 {
     public class ProdutoController
     {
-        public static bool VerificarIdInserido(int id)
+        private static void VerificarIdInserido(int id)
         {
             if (id == 0 || id == null)
                 throw new Exception("| Id inserido inválido");
 
             if (!ProdutoOP.VerificarId(id))
                 throw new Exception("| Produto com Id inserido não existe");
-
-            return true;
         }
         
         public static string ExibirProdutos()
@@ -68,17 +66,24 @@ namespace CicloStock.Controller
 
         public static bool ExcluirProduto(int id)
         {
-            if (VerificarIdInserido(id))
-            {
-                ProdutoModel produtoAExcluir = ProdutoOP.RetornarProduto(id);
+            VerificarIdInserido(id);
+            
+            ProdutoModel produtoAExcluir = ProdutoOP.RetornarProduto(id);
 
-                ProdutoOP.Excluir(produtoAExcluir);
+            ProdutoOP.Excluir(produtoAExcluir);
 
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
+        public static bool AlterarProduto(int id, string descricao)
+        {
+            VerificarIdInserido(id);
+
+            var produto = ProdutoOP.RetornarProduto(id);
+
+            ProdutoOP.Alterar(produto, descricao);
+
+            return true;
+        }
     }
 }

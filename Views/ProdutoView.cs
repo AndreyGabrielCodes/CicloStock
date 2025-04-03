@@ -19,7 +19,7 @@ namespace CicloStock.Views
             Console.WriteLine("| 4 - Excluir");
             Console.WriteLine("| 5 - Voltar");
             var opcao = int.Parse(Console.ReadLine());
-            
+            Console.Clear();
             switch (opcao)
             {
                 case 1: Visualizar(); break;
@@ -33,11 +33,7 @@ namespace CicloStock.Views
         }
         public static void Visualizar()
         {
-            Console.Clear();
-
-            var lista = ProdutoController.ExibirProdutos();
-
-            Console.WriteLine(lista);
+            Console.WriteLine(ProdutoController.ExibirProdutos());
 
             Console.ReadKey();
         }
@@ -54,20 +50,25 @@ namespace CicloStock.Views
             if (ProdutoController.InserirProduto(nome));
                 Console.WriteLine("| Produto inserido!");
 
-            Console.ReadKey();
+            Thread.Sleep(3000);
         }
         private static void Alterar()
         {
             Console.WriteLine("| ALTERAR PRODUTO");
-            Visualizar();
+            Console.WriteLine("|");
+            Console.WriteLine(ProdutoController.ExibirProdutos());
             Console.WriteLine("| Digite o ID a alterar");
             var id = int.Parse(Console.ReadLine());
 
-            if (ProdutoController.VerificarIdInserido(id))
-            {
-                Console.WriteLine("| Digite o novo nome do produto");
-                var nome = Console.ReadLine();
-            }
+            Console.WriteLine("| Digite o novo nome do produto");
+            var nome = Console.ReadLine();
+
+            Console.Clear();
+
+            if (ProdutoController.AlterarProduto(id, nome))
+                Console.WriteLine("| Produto alterado!");
+            
+            Thread.Sleep(3000);
         }
         private static void Excluir()
         {
@@ -75,12 +76,16 @@ namespace CicloStock.Views
             Console.WriteLine("|");
             Console.WriteLine("| *Produtos contidos em lotes serão inativos");
             Console.WriteLine("|");
-            Visualizar();
+            Console.WriteLine(ProdutoController.ExibirProdutos());
             Console.WriteLine("| Digite o ID a alterar");
             var id = int.Parse(Console.ReadLine());
 
-            ProdutoController.ExcluirProduto(id);
-            
+            Console.Clear();
+
+            if (ProdutoController.ExcluirProduto(id))
+                Console.WriteLine("| Produto excluido!");
+
+            Thread.Sleep(3000);
         }
     }
 }

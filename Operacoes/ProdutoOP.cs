@@ -77,15 +77,13 @@ namespace CicloStock.Operacoes
             return true;
         }
 
-        public static void Alterar(ProdutoModel produto, ProdutoModel produtoNovo)
+        public static void Alterar(ProdutoModel produto, string descricao)
         {
             try
             {
                 using (var context = new CicloStockContext())
                 {
-                    produto.Descricao = produtoNovo.Descricao;
-                    produto.Situacao = produtoNovo.Situacao;
-                    produto.Locacoes = produtoNovo.Locacoes;
+                    produto.Descricao = descricao;
                     context.ProdutoCXT.Update(produto);
                     context.SaveChanges();
                 }
@@ -120,7 +118,5 @@ namespace CicloStock.Operacoes
                 throw new Exception($"Não foi possível remover");
             }
         }
-
-
     }
 }

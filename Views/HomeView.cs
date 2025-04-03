@@ -8,7 +8,7 @@ namespace CicloStock.Views
 {
     public class HomeView
     {
-        public static void Menu()
+        public static async Task Menu()
         {
             while (true)
             {
@@ -38,7 +38,7 @@ namespace CicloStock.Views
                 {
                     Console.Clear();
                     Console.WriteLine($"| ERRO! {ex.Message}");
-                    Console.ReadKey();
+                    Thread.Sleep(3000);
                 }
             }
         }
