@@ -40,7 +40,7 @@ namespace CicloStock.Controller
             {
                 if (Convert.ToInt32(produto.Situacao) == 0)
                     situacaoTexto = "Inativo";
-                else if (Convert.ToInt32(produto.Situacao) == 1);
+                else if (Convert.ToInt32(produto.Situacao) == 1)
                     situacaoTexto = "Ativo";
                 sb.Append("| " + produto.ProdutoId + " | " + situacaoTexto + " | " + produto.Descricao + "\n");
             }
@@ -49,7 +49,7 @@ namespace CicloStock.Controller
         }
 
 
-        public static bool InserirProduto(string descricao)
+        public static void InserirProduto(string descricao)
         {
             if (string.IsNullOrEmpty(descricao))
                 throw new Exception("| Nome inserido não é válido");
@@ -60,30 +60,24 @@ namespace CicloStock.Controller
 
             if (!ProdutoOP.Inserir(produtoNovo))
                 throw new Exception("| Não foi possível inserir o produto");
-
-            return true;
         }
 
-        public static bool ExcluirProduto(int id)
+        public static void ExcluirProduto(int id)
         {
             VerificarIdInserido(id);
             
             ProdutoModel produtoAExcluir = ProdutoOP.RetornarProduto(id);
 
             ProdutoOP.Excluir(produtoAExcluir);
-
-            return true;
         }
 
-        public static bool AlterarProduto(int id, string descricao)
+        public static void AlterarProduto(int id, string descricao)
         {
             VerificarIdInserido(id);
 
             var produto = ProdutoOP.RetornarProduto(id);
 
             ProdutoOP.Alterar(produto, descricao);
-
-            return true;
         }
     }
 }

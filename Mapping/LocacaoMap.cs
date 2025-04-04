@@ -34,9 +34,8 @@ namespace CicloStock.Mapping
                 .HasDefaultValue(0);
 
             builder.HasOne(x => x.Produto)
-                .WithMany(x => x.Locacoes);
-                //.HasForeignKey(x => x.Produto)
-                //.IsRequired(false);
+                .WithMany(x => x.Locacoes)
+                .IsRequired(false);
         }
     }
 }

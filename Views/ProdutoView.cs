@@ -47,8 +47,9 @@ namespace CicloStock.Views
 
             Console.Clear();
 
-            if (ProdutoController.InserirProduto(nome));
-                Console.WriteLine("| Produto inserido!");
+            ProdutoController.InserirProduto(nome);
+
+            Console.WriteLine("| Produto inserido!");
 
             Thread.Sleep(3000);
         }
@@ -65,8 +66,9 @@ namespace CicloStock.Views
 
             Console.Clear();
 
-            if (ProdutoController.AlterarProduto(id, nome))
-                Console.WriteLine("| Produto alterado!");
+            ProdutoController.AlterarProduto(id, nome);
+
+            Console.WriteLine("| Produto alterado!");
             
             Thread.Sleep(3000);
         }
@@ -77,13 +79,14 @@ namespace CicloStock.Views
             Console.WriteLine("| *Produtos contidos em lotes serão inativos");
             Console.WriteLine("|");
             Console.WriteLine(ProdutoController.ExibirProdutos());
-            Console.WriteLine("| Digite o ID a alterar");
+            Console.WriteLine("| Digite o ID a excluir");
             var id = int.Parse(Console.ReadLine());
 
             Console.Clear();
 
-            if (ProdutoController.ExcluirProduto(id))
-                Console.WriteLine("| Produto excluido!");
+            ProdutoController.ExcluirProduto(id);
+
+            Console.WriteLine("| Produto excluido!");
 
             Thread.Sleep(3000);
         }

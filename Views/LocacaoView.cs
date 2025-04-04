@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CicloStock.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,70 +13,107 @@ namespace CicloStock.Views
         {
             Console.WriteLine("| LOCAÇÕES");
             Console.WriteLine("|");
-            Console.WriteLine("| 1 - Visualizar");
-            Console.WriteLine("| 2 - Adicionar");
-            Console.WriteLine("| 3 - Alterar");
-            Console.WriteLine("| 4 - Excluir ou Inativar");
-            Console.WriteLine("| 5 - Voltar");
+            Console.WriteLine("| 1 - Visualizar locações");
+            Console.WriteLine("| 2 - Visualizar produtos de locações");
+            Console.WriteLine("| 3 - Adicionar");
+            Console.WriteLine("| 4 - Alterar");
+            Console.WriteLine("| 5 - Excluir");
+            Console.WriteLine("| 6 - Voltar");
             var opcao = int.Parse(Console.ReadLine());
             Console.Clear();
             switch (opcao)
             {
-                case 1: Visualizar(); Console.ReadKey(); break;
-                case 2: Adicionar(); break;
-                case 3: Alterar(); break;
-                case 4: AlterarSituacao(); break;
-                case 5: break;
-                default: throw new Exception();
+                case 1: Visualizar(); break;
+                case 2: Visualizar(); break; // não terminado
+                case 3: Adicionar(); break;
+                case 4: Alterar(); break;
+                case 5: Excluir(); break;
+                case 6: break;
+                default: throw new Exception("Opção inserida é inválida");
             }
+            Console.Clear();
         }
         public static void Visualizar()
         {
-            //Controller de listagem aqui
+            Console.WriteLine(LocacaoController.ExibirLocacoes());
+
+        }
+        public static void VisualizarProdutos()
+        {
+            Console.WriteLine(LocacaoController.ExibirProdutoLocacao());
+
+            Console.ReadKey();
         }
         private static void Adicionar()
         {
-            Console.WriteLine("| ADICIONAR LOCACAO");
+            Console.Clear();
+            Console.WriteLine("| ADICIONAR LOCAÇÃO");
             Console.WriteLine("|");
-            Console.WriteLine("| Digite o nome do locação");
-            var nome = Console.ReadLine();
-            ProdutoView.Visualizar();
-            Console.WriteLine("| Digite o ID do produto dessa locação");
-            var id = int.Parse(Console.ReadLine());
-            
-            //Controller para criar locação
+            Console.WriteLine("| Digite a descrição da locação");
+            var descricao = Console.ReadLine();
+
+            Console.Clear();
+
+            LocacaoController.InserirLocacao(descricao);
+
+            Console.WriteLine("| Locação inserida!");
+
+            Thread.Sleep(3000);
         }
         private static void Alterar()
         {
             Console.WriteLine("| ALTERAR LOCAÇÃO");
-            Visualizar();
+            Console.WriteLine("|");
+            Console.WriteLine("| 1 - Alterar descrição");
+            Console.WriteLine("| 2 - Alterar situação");
+            Console.WriteLine("| 3 - Voltar");
+            var opcao = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(LocacaoController.ExibirLocacoes());
+
             Console.WriteLine("| Digite o ID a alterar");
             var id = int.Parse(Console.ReadLine());
 
-            //Controller de verificação de ID
-
-            Console.WriteLine("| Digite o novo nome da locação");
-            var nome = Console.ReadLine();
-
-            //Controller para alterar locação
-        }
-        private static void AlterarSituacao()
-        {
-            Console.WriteLine("| EXCLUIR OU INATIVAR PRODUTO");
-            Console.WriteLine("|");
-            Console.WriteLine("| *Locações com produtos serão inativas");
-            Console.WriteLine("|");
-            Console.WriteLine("| 1 - Excluir ou Inativar locação");
-            Console.WriteLine("| 2 - Voltar");
-            var opcao = int.Parse(Console.ReadLine());
-            if (opcao == 1)
+            switch (opcao)
             {
-                Console.Clear();
-                Visualizar();
-                Console.WriteLine("| Digite o ID do locação");
-                var id = int.Parse(Console.ReadLine());
-                //Controller aqui
+                case 1:
+                    Console.WriteLine("| Digite a nova descrição da locação");
+                    var descricao = Console.ReadLine();
+                    LocacaoController.AlterarNomeLocacao(id, descricao);
+                    break;
+                case 2:
+                    Console.WriteLine("| * Se a situação for principal será alterada para alternativa");
+                    Console.WriteLine("| * Se a situação for alternativa será alterada para principal");
+                    Thread.Sleep(3000);
+                    LocacaoController.AlterarSituacaoLocacao(id);
+                    break;
+                case 3: break;
+                default: throw new Exception("Opção inserida é inválida");
             }
+
+            Console.Clear();
+
+            Console.WriteLine("| Locação alterada!");
+
+            Thread.Sleep(3000);
+        }
+        private static void Excluir()
+        {
+            Console.WriteLine("| EXCLUIR LOCAÇÃO");
+            Console.WriteLine("|");
+            Console.WriteLine("| *Não podem existir itens na locação para excluir");
+            Console.WriteLine("|");
+            Console.WriteLine(LocacaoController.ExibirLocacoes());
+            Console.WriteLine("| Digite o ID a excluir");
+            var id = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+
+            LocacaoController.ExcluirProduto(id);
+                
+            Console.WriteLine("| Locação excluida!");
+
+            Thread.Sleep(3000);
         }
 
     }

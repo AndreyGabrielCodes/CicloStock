@@ -13,8 +13,6 @@ namespace CicloStock.Operacoes
                 try
                 {
                     var produto = context.ProdutoCXT.Where(x=> Convert.ToInt32(x.ProdutoId) == id).FirstOrDefault();
-                    if (produto == null) 
-                        return null;
                     return produto;
                 }
                 catch
@@ -30,7 +28,7 @@ namespace CicloStock.Operacoes
             {
                 try
                 {
-                    var lista = context.ProdutoCXT.ToList();
+                    var lista = context.ProdutoCXT.Where(x => x.Situacao != Enumerados.SituacaoProduto.Inativo).ToList();
                     return lista;
                 }
                 catch
