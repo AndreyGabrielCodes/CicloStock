@@ -16,16 +16,28 @@ namespace CicloStock.Controller
             if (id == 0 || id == null)
                 throw new Exception("| Id inserido inválido");
 
-            if (!ProdutoOP.VerificarId(id))
+            if (!LocacaoOP.VerificarId(id))
                 throw new Exception("| Locação com Id inserido não existe");
         }
-        public static void ExibirProdutoLocacao(int id)
+        public static string ExibirProdutoLocacao(int id)
         {
             VerificarIdInserido(id);
 
-            LocacaoOP.RetornarLocacao(id);
+            LocacaoModel locacao = LocacaoOP.RetornarLocacao(id);
 
+            var lista = LocacaoOP.ListarProdutosLocacao(locacao);
 
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("| Id Locação | Descrição Locação | Id Produto | Nome Produto\n");
+            sb.Append("");
+
+            foreach (LocacaoProdutoModel item in lista)
+            {
+                sb.Append("| " + item.Locacao.LocacaoId + " | " + item.Locacao.Descricao + " | " + item.Produto.ProdutoId + " | " + item.Produto.Descricao + "\n");
+            }
+
+            return sb.ToString();
         }
         public static string ExibirLocacoes()
         {

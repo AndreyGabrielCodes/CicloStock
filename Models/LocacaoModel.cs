@@ -10,4 +10,10 @@ namespace CicloStock.Models
         public Enumerados.SituacaoLocacao Situacao { get; set; }
         public int? QuantidadeProduto { get; set; }
     }
+
+    public class LocacaoProdutoModel
+    {
+        public LocacaoModel Locacao { get; set; }
+        public ProdutoModel Produto { get; set; }
+    }
 }

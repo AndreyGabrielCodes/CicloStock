@@ -24,7 +24,7 @@ namespace CicloStock.Views
             switch (opcao)
             {
                 case 1: Visualizar(); break;
-                case 2: Visualizar(); break; // não terminado
+                case 2: VisualizarProdutos(); break;
                 case 3: Adicionar(); break;
                 case 4: Alterar(); break;
                 case 5: Excluir(); break;
@@ -40,7 +40,12 @@ namespace CicloStock.Views
         }
         public static void VisualizarProdutos()
         {
-            Console.WriteLine(LocacaoController.ExibirProdutoLocacao());
+            Console.WriteLine(LocacaoController.ExibirLocacoes());
+
+            Console.WriteLine("| Digite o ID da locação a visualizar os produtos");
+            var id = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(LocacaoController.ExibirProdutoLocacao(id));
 
             Console.ReadKey();
         }
@@ -101,7 +106,7 @@ namespace CicloStock.Views
         {
             Console.WriteLine("| EXCLUIR LOCAÇÃO");
             Console.WriteLine("|");
-            Console.WriteLine("| *Não podem existir itens na locação para excluir");
+            Console.WriteLine("| *Não pode existir produto na locação para excluir");
             Console.WriteLine("|");
             Console.WriteLine(LocacaoController.ExibirLocacoes());
             Console.WriteLine("| Digite o ID a excluir");

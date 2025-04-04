@@ -24,6 +24,25 @@ namespace CicloStock.Operacoes
             }
         }
 
+        public static bool VerificarId(int id)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var produto = context.LocacaoCXT.Where(x => x.LocacaoId == id && x.Situacao != Enumerados.SituacaoLocacao.Inativo).FirstOrDefault();
+                    if (produto == null)
+                        return false;
+
+                    return true;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar o Id");
+                }
+            }
+        }
+
         public static List<LocacaoModel> ListarLocacoes() 
         { 
             using (var context = new CicloStockContext())
@@ -40,18 +59,26 @@ namespace CicloStock.Operacoes
             }
         }
 
-        public static List<LocacaoModel> ListarProdutosLocacao(LocacaoModel locacao)
+        public static List<LocacaoProdutoModel> ListarProdutosLocacao(LocacaoModel locacaoSelecionada)
         {
             using (var context = new CicloStockContext())
             {
                 try
                 {
-                    /*var lista = context.LocacaoCXT.Join(context.ProdutoCXT, 
-                            produto => produto.Produto.ProdutoId,
-                            locacao => locacao.ProdutoId,
-                            (locacao, produto) => { ProdutoModel = produto, });*/
+                    var lista = context.LocacaoCXT
+                        .Join(context.ProdutoCXT,
+                            locacao => locacao.Produto.ProdutoId,
+                            produto => produto.ProdutoId,
+                            (locacao, produto) => new { locacao, produto })
+                        .Where(x => x.locacao.LocacaoId == locacaoSelecionada.LocacaoId && x.produto.Situacao != Enumerados.SituacaoProduto.Inativo)
+                        .OrderBy(x=> x.locacao.LocacaoId)
+                        .Select(x=> new LocacaoProdutoModel()
+                            { 
+                                Produto = x.produto,
+                                Locacao = x.locacao
+                            })
+                        .ToList();
                     
-
                     return lista;
                 }
                 catch
