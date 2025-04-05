@@ -24,6 +24,22 @@ namespace CicloStock.Operacoes
             }
         }
 
+        public static LocacaoModel RetornarLocacaoProduto(ProdutoModel produto)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var locacao = context.LocacaoCXT.Where(x => x.Produto == produto).FirstOrDefault();
+                    return locacao;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar registros");
+                }
+            }
+        }
+
         public static bool VerificarId(int id)
         {
             using (var context = new CicloStockContext())
@@ -59,7 +75,25 @@ namespace CicloStock.Operacoes
             }
         }
 
-        public static List<LocacaoProdutoModel> ListarProdutosLocacao(LocacaoModel locacaoSelecionada)
+        public static List<LocacaoModel> ListarLocacoesSemProduto()
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var lista = context.LocacaoCXT
+                        .Where(x => x.Situacao != Enumerados.SituacaoLocacao.Inativo && x.Produto == null)
+                        .ToList();
+                    return lista;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível visualizar registros");
+                }
+            }
+        }
+
+        public static List<LocacaoProdutoModel> RetornarProdutoDeLocacao(LocacaoModel locacaoSelecionada)
         {
             using (var context = new CicloStockContext())
             {
@@ -132,6 +166,26 @@ namespace CicloStock.Operacoes
                         locacao.Situacao = Enumerados.SituacaoLocacao.Principal;
 
                     context.LocacaoCXT.Update(locacao);
+                    context.SaveChanges();
+                }
+            }
+            catch
+            {
+                throw new Exception($"Não foi possível alterar a situação");
+            }
+        }
+
+        public static void AlterarLocacaoProduto(LocacaoModel locacaoAntiga, LocacaoModel locacaoNova, ProdutoModel produto)
+        {
+            try
+            {
+                using (var context = new CicloStockContext())
+                {
+                    locacaoAntiga.Produto = null;
+                    locacaoNova.Produto = produto;
+
+                    context.LocacaoCXT.Update(locacaoAntiga);
+                    context.LocacaoCXT.Update(locacaoNova);
                     context.SaveChanges();
                 }
             }

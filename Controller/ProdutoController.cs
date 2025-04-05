@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using CicloStock.Models;
 using CicloStock.Operacoes;
+using CicloStock.Utilitarios;
 using Microsoft.Extensions.Primitives;
 
 namespace CicloStock.Controller
 {
     public class ProdutoController
     {
-        private static void VerificarIdInserido(int id)
+        public static void VerificarIdInserido(int id)
         {
             if (id == 0 || id == null)
                 throw new Exception("| Id inserido inválido");
@@ -38,16 +39,15 @@ namespace CicloStock.Controller
             sb.Append("");
             foreach (ProdutoModel produto in lista)
             {
-                if (Convert.ToInt32(produto.Situacao) == 0)
+                if (produto.Situacao == Enumerados.SituacaoProduto.Inativo)
                     situacaoTexto = "Inativo";
-                else if (Convert.ToInt32(produto.Situacao) == 1)
+                else if (produto.Situacao == Enumerados.SituacaoProduto.Ativo)
                     situacaoTexto = "Ativo";
                 sb.Append("| " + produto.ProdutoId + " | " + situacaoTexto + " | " + produto.Descricao + "\n");
             }
 
             return sb.ToString();
         }
-
 
         public static void InserirProduto(string descricao)
         {
@@ -78,6 +78,18 @@ namespace CicloStock.Controller
             var produto = ProdutoOP.RetornarProduto(id);
 
             ProdutoOP.Alterar(produto, descricao);
+        }
+
+        public static void AlterarLocacaoProduto(int idProduto, int idLocacaoNova)
+        {
+            VerificarIdInserido(idProduto);
+            LocacaoController.VerificarIdInserido(idLocacaoNova);
+
+            var produto = ProdutoOP.RetornarProduto(idProduto);
+            var locacaoNova = LocacaoOP.RetornarLocacao(idLocacaoNova);
+            var locacaoAntiga =LocacaoOP.RetornarLocacaoProduto(produto);
+
+            LocacaoOP.AlterarLocacaoProduto(locacaoAntiga, locacaoNova, produto);
         }
     }
 }

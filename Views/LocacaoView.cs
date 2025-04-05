@@ -87,8 +87,8 @@ namespace CicloStock.Views
                     LocacaoController.AlterarNomeLocacao(id, descricao);
                     break;
                 case 2:
-                    Console.WriteLine("| * Se a situação for principal será alterada para alternativa");
-                    Console.WriteLine("| * Se a situação for alternativa será alterada para principal");
+                    Console.WriteLine("| *Se a situação for principal será alterada para alternativa");
+                    Console.WriteLine("| *Se a situação for alternativa será alterada para principal");
                     Thread.Sleep(3000);
                     LocacaoController.AlterarSituacaoLocacao(id);
                     break;

@@ -57,19 +57,51 @@ namespace CicloStock.Views
         {
             Console.WriteLine("| ALTERAR PRODUTO");
             Console.WriteLine("|");
-            Console.WriteLine(ProdutoController.ExibirProdutos());
-            Console.WriteLine("| Digite o ID a alterar");
-            var id = int.Parse(Console.ReadLine());
+            Console.WriteLine("| 1 - Alterar nome");
+            Console.WriteLine("| 2 - Alterar locação");
+            Console.WriteLine("| 3 - Voltar");
+            var opcao = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("| Digite o novo nome do produto");
-            var nome = Console.ReadLine();
+            switch (opcao)
+            {
+                case 1:
+                    Console.WriteLine(ProdutoController.ExibirProdutos());
+                    Console.WriteLine("| Digite o ID a alterar");
+                    var id = int.Parse(Console.ReadLine());
 
-            Console.Clear();
+                    Console.WriteLine("| Digite o novo nome do produto");
+                    var nome = Console.ReadLine();
 
-            ProdutoController.AlterarProduto(id, nome);
+                    Console.Clear();
+                    ProdutoController.AlterarProduto(id, nome);
+                    break;
+                case 2:
+                    Console.WriteLine(ProdutoController.ExibirProdutos());
+                    Console.WriteLine("| Digite o ID a transferir");
+                    var idProduto = int.Parse(Console.ReadLine());
+
+                    Console.Clear();
+
+                    Console.WriteLine(LocacaoController.ExibirLocacoesSemProduto());
+                    Console.WriteLine("| *É permitido transferir apenas para locações sem produtos");
+
+                    Console.WriteLine("| Locação atual do produto");
+                    Console.WriteLine(LocacaoController.ExibirLocacaoProduto(idProduto));
+
+                    Console.WriteLine("| Digite o ID da locação");
+                    var idLocacaoNova = int.Parse(Console.ReadLine());
+
+                    ProdutoController.AlterarLocacaoProduto(idProduto, idLocacaoNova);
+
+                    break;
+                case 3: break;
+                default: throw new Exception("Opção inserida é inválida");
+            }
+
 
             Console.WriteLine("| Produto alterado!");
-            
+
+
             Thread.Sleep(3000);
         }
         private static void Excluir()
