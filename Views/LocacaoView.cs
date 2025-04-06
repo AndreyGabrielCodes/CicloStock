@@ -13,41 +13,55 @@ namespace CicloStock.Views
         {
             Console.WriteLine("| LOCAÇÕES");
             Console.WriteLine("|");
-            Console.WriteLine("| 1 - Visualizar locações");
-            Console.WriteLine("| 2 - Visualizar produtos de locações");
-            Console.WriteLine("| 3 - Adicionar");
-            Console.WriteLine("| 4 - Alterar");
-            Console.WriteLine("| 5 - Excluir");
-            Console.WriteLine("| 6 - Voltar");
+            Console.WriteLine("| 1 - Visualizar");
+            Console.WriteLine("| 2 - Adicionar");
+            Console.WriteLine("| 3 - Alterar");
+            Console.WriteLine("| 4 - Excluir");
+            Console.WriteLine("| 5 - Voltar");
             var opcao = int.Parse(Console.ReadLine());
             Console.Clear();
             switch (opcao)
             {
                 case 1: Visualizar(); break;
-                case 2: VisualizarProdutos(); break;
-                case 3: Adicionar(); break;
-                case 4: Alterar(); break;
-                case 5: Excluir(); break;
-                case 6: break;
+                case 2: Adicionar(); break;
+                case 3: Alterar(); break;
+                case 4: Excluir(); break;
+                case 5: break;
                 default: throw new Exception("Opção inserida é inválida");
             }
             Console.Clear();
         }
+
         public static void Visualizar()
         {
+            Console.WriteLine("| VISUALIZAR LOCAÇÃO");
+            Console.WriteLine("|");
+            Console.WriteLine("| 1 - Visualizar locações");
+            Console.WriteLine("| 2 - Visualizar produtos de locações");
+            Console.WriteLine("| 3 - Voltar");
+            var opcao = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+
             Console.WriteLine(LocacaoController.ExibirLocacoes());
 
-        }
-        public static void VisualizarProdutos()
-        {
-            Console.WriteLine(LocacaoController.ExibirLocacoes());
+            switch (opcao)
+            {
+                case 1:
+                    Console.ReadKey();
+                    break;
+                case 2:
+                    Console.WriteLine("| Digite o ID da locação a visualizar os produtos");
+                    var id = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("| Digite o ID da locação a visualizar os produtos");
-            var id = int.Parse(Console.ReadLine());
+                    Console.WriteLine(LocacaoController.ExibirProdutoLocacao(id));
+                    Console.ReadKey();
+                    break;
+                case 3: break;
+                default: throw new Exception("Opção inserida é inválida");
+            }
 
-            Console.WriteLine(LocacaoController.ExibirProdutoLocacao(id));
-
-            Console.ReadKey();
+            Console.Clear();
         }
         private static void Adicionar()
         {

@@ -44,6 +44,9 @@ namespace CicloStock.Controller
 
             var locacaoProduto = LocacaoOP.RetornarProdutoDeLocacao(locacao);
 
+            if (locacaoProduto == null)
+                return "| Não há produtos cadastrados para esta locação";
+
             StringBuilder sb = new StringBuilder();
 
             sb.Append("| Id Locação | Descrição Locação | Id Produto | Nome Produto\n");
