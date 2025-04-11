@@ -62,6 +62,8 @@ namespace CicloStock.Views
             Console.WriteLine("| 3 - Voltar");
             var opcao = int.Parse(Console.ReadLine());
 
+            Console.Clear();
+
             switch (opcao)
             {
                 case 1:
@@ -72,21 +74,22 @@ namespace CicloStock.Views
                     Console.WriteLine("| Digite o novo nome do produto");
                     var nome = Console.ReadLine();
 
-                    Console.Clear();
                     ProdutoController.AlterarProduto(id, nome);
                     break;
                 case 2:
+                    Console.WriteLine("| ALTERAÇÃO DE LOCAÇÃO DE PRODUTO");
+                    Console.WriteLine("|");
+                    
                     Console.WriteLine(ProdutoController.ExibirProdutos());
                     Console.WriteLine("| Digite o ID a transferir");
                     var idProduto = int.Parse(Console.ReadLine());
 
-                    Console.Clear();
-
-                    Console.WriteLine(LocacaoController.ExibirLocacoesSemProduto());
-                    Console.WriteLine("| *É permitido transferir apenas para locações sem produtos");
-
                     Console.WriteLine("| Locação atual do produto");
                     Console.WriteLine(LocacaoController.ExibirLocacaoProduto(idProduto));
+
+                    Console.WriteLine("\n| Locações disponíveis");
+                    Console.WriteLine(LocacaoController.ExibirLocacoesSemProduto());
+                    Console.WriteLine("| *É permitido transferir apenas para locações sem produtos\n");
 
                     Console.WriteLine("| Digite o ID da locação");
                     var idLocacaoNova = int.Parse(Console.ReadLine());
@@ -98,11 +101,13 @@ namespace CicloStock.Views
                 default: throw new Exception("Opção inserida é inválida");
             }
 
-
-            Console.WriteLine("| Produto alterado!");
-
-
-            Thread.Sleep(3000);
+            if (opcao != 3)
+            {
+                Console.Clear();
+                Console.WriteLine("| Produto alterado!");
+                Thread.Sleep(3000);
+            }
+                
         }
         private static void Excluir()
         {

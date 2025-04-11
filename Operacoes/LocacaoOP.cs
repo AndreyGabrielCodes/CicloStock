@@ -181,17 +181,30 @@ namespace CicloStock.Operacoes
             {
                 using (var context = new CicloStockContext())
                 {
-                    locacaoAntiga.Produto = null;
-                    locacaoNova.Produto = produto;
+                    int? quantidadeProduto = null;
+                    if (locacaoAntiga != null)
+                    {
+                        var locacaoAntigaContext = context.LocacaoCXT.Find(locacaoAntiga.LocacaoId);
 
-                    context.LocacaoCXT.Update(locacaoAntiga);
+                        quantidadeProduto = locacaoAntiga.QuantidadeProduto;
+                        locacaoAntigaContext.QuantidadeProduto = null;
+                        locacaoAntigaContext.Produto = null;
+                        
+                        context.LocacaoCXT.Update(locacaoAntigaContext);
+                        context.SaveChanges();
+                    }
+                    
+
+                    locacaoNova.Produto = produto;
+                    locacaoNova.QuantidadeProduto = quantidadeProduto;
+
                     context.LocacaoCXT.Update(locacaoNova);
                     context.SaveChanges();
                 }
             }
             catch
             {
-                throw new Exception($"Não foi possível alterar a situação");
+                throw new Exception($"Não foi possível alterar a locação");
             }
         }
 

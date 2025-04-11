@@ -43,14 +43,14 @@ namespace CicloStock.Views
 
             Console.Clear();
 
-            Console.WriteLine(LocacaoController.ExibirLocacoes());
-
             switch (opcao)
             {
                 case 1:
+                    Console.WriteLine(LocacaoController.ExibirLocacoes());
                     Console.ReadKey();
                     break;
                 case 2:
+                    Console.WriteLine(LocacaoController.ExibirLocacoes());
                     Console.WriteLine("| Digite o ID da locação a visualizar os produtos");
                     var id = int.Parse(Console.ReadLine());
 
@@ -90,23 +90,27 @@ namespace CicloStock.Views
 
             Console.WriteLine(LocacaoController.ExibirLocacoes());
 
-            Console.WriteLine("| Digite o ID a alterar");
-            var id = int.Parse(Console.ReadLine());
-
             switch (opcao)
             {
                 case 1:
+                    Console.WriteLine("| Digite o ID a alterar");
+                    var id = int.Parse(Console.ReadLine());
+
                     Console.WriteLine("| Digite a nova descrição da locação");
                     var descricao = Console.ReadLine();
                     LocacaoController.AlterarNomeLocacao(id, descricao);
                     break;
                 case 2:
+                    Console.WriteLine("| Digite o ID a alterar");
+                    id = int.Parse(Console.ReadLine());
+
                     Console.WriteLine("| *Se a situação for principal será alterada para alternativa");
                     Console.WriteLine("| *Se a situação for alternativa será alterada para principal");
                     Thread.Sleep(3000);
                     LocacaoController.AlterarSituacaoLocacao(id);
                     break;
-                case 3: break;
+                case 3:
+                    return;
                 default: throw new Exception("Opção inserida é inválida");
             }
 

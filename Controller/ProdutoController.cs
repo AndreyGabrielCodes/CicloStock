@@ -87,7 +87,10 @@ namespace CicloStock.Controller
 
             var produto = ProdutoOP.RetornarProduto(idProduto);
             var locacaoNova = LocacaoOP.RetornarLocacao(idLocacaoNova);
-            var locacaoAntiga =LocacaoOP.RetornarLocacaoProduto(produto);
+            var locacaoAntiga = LocacaoOP.RetornarLocacaoProduto(produto);
+
+            if (locacaoAntiga != null && locacaoNova.LocacaoId == locacaoAntiga.LocacaoId)
+                throw new Exception("| Id da locação a transferir é a mesma da locação atual ");
 
             LocacaoOP.AlterarLocacaoProduto(locacaoAntiga, locacaoNova, produto);
         }

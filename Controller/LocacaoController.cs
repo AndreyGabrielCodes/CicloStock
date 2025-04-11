@@ -31,7 +31,7 @@ namespace CicloStock.Controller
             if (locacao == null)
                 return "| Não há locação para este produto";
 
-            string texto = "| Id Locação | Descrição Locação";
+            string texto = "| Id Locação | Descrição Locação\n";
             texto += $"| {locacao.LocacaoId} | {locacao.Descricao}";
 
             return texto;
@@ -68,7 +68,7 @@ namespace CicloStock.Controller
 
             lista.OrderBy(x => x.Situacao);
 
-            string situacaoTexto = "";
+            string situacaoTexto = string.Empty;
 
             StringBuilder sb = new StringBuilder();
 

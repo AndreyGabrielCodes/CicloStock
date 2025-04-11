@@ -30,8 +30,7 @@ namespace CicloStock.Mapping
                 .HasColumnType("INT");
 
             builder.Property(x => x.QuantidadeProduto)
-                .HasColumnType("INT")
-                .HasDefaultValue(0);
+                .HasColumnType("INT");
 
             builder.HasOne(x => x.Produto)
                 .WithMany(x => x.Locacoes)

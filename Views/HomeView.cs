@@ -8,7 +8,7 @@ namespace CicloStock.Views
 {
     public class HomeView
     {
-        public static async Task Menu()
+        public static void Menu()
         {
             while (true)
             {
