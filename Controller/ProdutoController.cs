@@ -80,19 +80,33 @@ namespace CicloStock.Controller
             ProdutoOP.Alterar(produto, descricao);
         }
 
-        public static void AlterarLocacaoProduto(int idProduto, int idLocacaoNova)
+        public static void AlterarLocacaoProduto(int idLocacaoAntiga, int idLocacaoNova, int idProduto)
         {
             VerificarIdInserido(idProduto);
             LocacaoController.VerificarIdInserido(idLocacaoNova);
 
             var produto = ProdutoOP.RetornarProduto(idProduto);
             var locacaoNova = LocacaoOP.RetornarLocacao(idLocacaoNova);
-            var locacaoAntiga = LocacaoOP.RetornarLocacaoProduto(produto);
+            var locacaoAntiga = LocacaoOP.RetornarLocacao(idLocacaoAntiga);
 
             if (locacaoAntiga != null && locacaoNova.LocacaoId == locacaoAntiga.LocacaoId)
                 throw new Exception("| Id da locação a transferir é a mesma da locação atual ");
 
             LocacaoOP.AlterarLocacaoProduto(locacaoAntiga, locacaoNova, produto);
+        }
+
+        public static bool ProdutoPossuiLocacao(int idProduto)
+        {
+            ProdutoController.VerificarIdInserido(idProduto);
+
+            var produto = ProdutoOP.RetornarProduto(idProduto);
+
+            var locacoes = LocacaoOP.RetornarLocacaoPorProduto(produto);
+
+            if (locacoes == null || locacoes.Count == 0)
+                return false;
+
+            return true;
         }
     }
 }

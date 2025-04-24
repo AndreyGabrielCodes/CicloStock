@@ -81,12 +81,22 @@ namespace CicloStock.Views
                     Console.WriteLine("|");
                     
                     Console.WriteLine(ProdutoController.ExibirProdutos());
-                    Console.WriteLine("| Digite o ID a transferir");
+                    Console.WriteLine("| Digite o ID do produto a transferir");
                     var idProduto = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("| Locação atual do produto");
+                    Console.WriteLine("| Locações atuais do produto");
                     Console.WriteLine(LocacaoController.ExibirLocacaoProduto(idProduto));
 
+                    bool locacaoExistente = ProdutoController.ProdutoPossuiLocacao(idProduto);
+
+                    int idLocacaoAntiga = 0;
+
+                    if (locacaoExistente)
+                    {
+                        Console.WriteLine("\n| Digite o ID da locação atual do produto a retirar");
+                        idLocacaoAntiga = int.Parse(Console.ReadLine());
+                    }
+                    
                     Console.WriteLine("\n| Locações disponíveis");
                     Console.WriteLine(LocacaoController.ExibirLocacoesSemProduto());
                     Console.WriteLine("| *É permitido transferir apenas para locações sem produtos\n");
@@ -94,7 +104,7 @@ namespace CicloStock.Views
                     Console.WriteLine("| Digite o ID da locação");
                     var idLocacaoNova = int.Parse(Console.ReadLine());
 
-                    ProdutoController.AlterarLocacaoProduto(idProduto, idLocacaoNova);
+                    ProdutoController.AlterarLocacaoProduto(idLocacaoAntiga, idLocacaoNova, idProduto);
 
                     break;
                 case 3: break;

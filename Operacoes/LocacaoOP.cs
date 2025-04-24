@@ -24,13 +24,13 @@ namespace CicloStock.Operacoes
             }
         }
 
-        public static LocacaoModel RetornarLocacaoProduto(ProdutoModel produto)
+        public static List<LocacaoModel>? RetornarLocacaoPorProduto(ProdutoModel produto)
         {
             using (var context = new CicloStockContext())
             {
                 try
                 {
-                    var locacao = context.LocacaoCXT.Where(x => x.Produto == produto).FirstOrDefault();
+                    var locacao = context.LocacaoCXT.Where(x => x.Produto == produto).ToList();
                     return locacao;
                 }
                 catch
@@ -175,7 +175,7 @@ namespace CicloStock.Operacoes
             }
         }
 
-        public static void AlterarLocacaoProduto(LocacaoModel locacaoAntiga, LocacaoModel locacaoNova, ProdutoModel produto)
+        public static void AlterarLocacaoProduto(LocacaoModel? locacaoAntiga, LocacaoModel locacaoNova, ProdutoModel produto)
         {
             try
             {
@@ -184,18 +184,17 @@ namespace CicloStock.Operacoes
                     int? quantidadeProduto = null;
                     if (locacaoAntiga != null)
                     {
-                        var locacaoAntigaContext = context.LocacaoCXT.Find(locacaoAntiga.LocacaoId);
-
                         quantidadeProduto = locacaoAntiga.QuantidadeProduto;
-                        locacaoAntigaContext.QuantidadeProduto = null;
-                        locacaoAntigaContext.Produto = null;
-                        
-                        context.LocacaoCXT.Update(locacaoAntigaContext);
+                        locacaoAntiga.QuantidadeProduto = null;
+                        locacaoAntiga.ProdutoId = null;
+                        locacaoAntiga.Produto = null;
+
+                        context.LocacaoCXT.Update(locacaoAntiga);
                         context.SaveChanges();
                     }
                     
-
                     locacaoNova.Produto = produto;
+                    locacaoNova.ProdutoId = produto.ProdutoId;
                     locacaoNova.QuantidadeProduto = quantidadeProduto;
 
                     context.LocacaoCXT.Update(locacaoNova);

@@ -33,7 +33,8 @@ namespace CicloStock.Mapping
                 .HasColumnType("INT");
 
             builder.HasOne(x => x.Produto)
-                .WithMany(x => x.Locacoes)
+                .WithMany(x=> x.Locacoes)
+                .HasForeignKey(x=> x.ProdutoId)
                 .IsRequired(false);
         }
     }

@@ -26,13 +26,16 @@ namespace CicloStock.Controller
 
             var produto = ProdutoOP.RetornarProduto(idProduto);
 
-            LocacaoModel locacao = LocacaoOP.RetornarLocacaoProduto(produto);
+            var locacoes = LocacaoOP.RetornarLocacaoPorProduto(produto);
 
-            if (locacao == null)
+            if (locacoes == null || locacoes.Count == 0)
                 return "| Não há locação para este produto";
 
             string texto = "| Id Locação | Descrição Locação\n";
-            texto += $"| {locacao.LocacaoId} | {locacao.Descricao}";
+            foreach(var locacao in locacoes)
+            {
+                texto += $"| {locacao.LocacaoId} | {locacao.Descricao}";
+            }
 
             return texto;
         }
