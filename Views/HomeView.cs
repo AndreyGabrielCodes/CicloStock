@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CicloStock.Utilitarios;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,9 +37,7 @@ namespace CicloStock.Views
                 }
                 catch (Exception ex)
                 {
-                    Console.Clear();
-                    Console.WriteLine($"| ERRO! {ex.Message}");
-                    Thread.Sleep(3000);
+                    Info.ExibirEspera($"| ERRO! {ex.Message}");
                 }
             }
         }

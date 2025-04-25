@@ -1,4 +1,5 @@
 ﻿using CicloStock.Controller;
+using CicloStock.Utilitarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,7 @@ namespace CicloStock.Views
 
             ProdutoController.InserirProduto(nome);
 
-            Console.WriteLine("| Produto inserido!");
-
-            Thread.Sleep(3000);
+            Info.ExibirEspera("| Produto inserido!");
         }
         private static void Alterar()
         {
@@ -113,11 +112,9 @@ namespace CicloStock.Views
 
             if (opcao != 3)
             {
-                Console.Clear();
-                Console.WriteLine("| Produto alterado!");
-                Thread.Sleep(3000);
+                Info.ExibirEspera("| Produto alterado!");
             }
-                
+
         }
         private static void Excluir()
         {
@@ -129,13 +126,9 @@ namespace CicloStock.Views
             Console.WriteLine("| Digite o ID a excluir");
             var id = int.Parse(Console.ReadLine());
 
-            Console.Clear();
-
             ProdutoController.ExcluirProduto(id);
 
-            Console.WriteLine("| Produto excluido!");
-
-            Thread.Sleep(3000);
+            Info.ExibirEspera("| Produto excluido!");
         }
     }
 }

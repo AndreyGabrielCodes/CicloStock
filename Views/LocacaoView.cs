@@ -1,4 +1,5 @@
 ﻿using CicloStock.Controller;
+using CicloStock.Utilitarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,13 +72,9 @@ namespace CicloStock.Views
             Console.WriteLine("| Digite a descrição da locação");
             var descricao = Console.ReadLine();
 
-            Console.Clear();
-
             LocacaoController.InserirLocacao(descricao);
 
-            Console.WriteLine("| Locação inserida!");
-
-            Thread.Sleep(3000);
+            Info.ExibirEspera("| Locação inserida!");
         }
         private static void Alterar()
         {
@@ -114,11 +111,7 @@ namespace CicloStock.Views
                 default: throw new Exception("Opção inserida é inválida");
             }
 
-            Console.Clear();
-
-            Console.WriteLine("| Locação alterada!");
-
-            Thread.Sleep(3000);
+            Info.ExibirEspera("| Locação alterada!");
         }
         private static void Excluir()
         {
@@ -130,14 +123,9 @@ namespace CicloStock.Views
             Console.WriteLine("| Digite o ID a excluir");
             var id = int.Parse(Console.ReadLine());
 
-            Console.Clear();
-
             LocacaoController.ExcluirProduto(id);
                 
-            Console.WriteLine("| Locação excluida!");
-
-            Thread.Sleep(3000);
+            Info.ExibirEspera("| Locação excluida!");
         }
-
     }
 }
