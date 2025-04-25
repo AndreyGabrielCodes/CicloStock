@@ -1,11 +1,11 @@
 ﻿using CicloStock.Mapping;
 using CicloStock.Models;
+using CicloStock.Utilitarios;
 
 namespace CicloStock.Operacoes
 {
     public class EntradaOP
     {
-        #region Entrada
         public static void Inserir(EntradaModel entrada)
         {
             using (var context = new CicloStockContext())
@@ -24,39 +24,92 @@ namespace CicloStock.Operacoes
 
         public static void Alterar(EntradaModel entrada, EntradaModel entradaNova)
         {
-            try
+            using (var context = new CicloStockContext())
             {
-                using (var context = new CicloStockContext())
+                try
                 {
                     entrada.Descricao = entradaNova.Descricao;
                     entrada.Situacao = entradaNova.Situacao;
                     entrada.DataInicio = entradaNova.DataInicio;
-                    entrada.DataFim = entradaNova.DataFim;   
+                    entrada.DataFim = entradaNova.DataFim;
                     context.EntradaCXT.Update(entrada);
                     context.SaveChanges();
                 }
-            }
-            catch
-            {
-                throw new Exception($"Não foi possível alterar");
+                catch
+                {
+                    throw new Exception($"Não foi possível alterar");
+                }
             }
         }
 
         public static void Remover(EntradaModel entrada)
         {
-            try
+            using (var context = new CicloStockContext())
             {
-                using (var context = new CicloStockContext())
+
+                try
                 {
                     context.EntradaCXT.Remove(entrada);
                     context.SaveChanges();
-                } 
-            }
-            catch
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível remover");
+                }
+                    
+            } 
+        }
+
+        public static List<EntradaModel> ListarEntradas()
+        {
+            using (var context = new CicloStockContext())
             {
-                throw new Exception($"Não foi possível remover");
+                try
+                {
+                    var lista = context.EntradaCXT.Where(x => x.Situacao != Enumerados.SituacaoEntrada.Cancelado).ToList();
+                    return lista;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível visualizar registros");
+                }
             }
         }
-        #endregion
+
+        public static bool VerificarId(int id)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var entrada = context.EntradaCXT.Where(x => x.EntradaId == id && x.Situacao != Enumerados.SituacaoEntrada.Cancelado).FirstOrDefault();
+                    if (entrada == null)
+                        return false;
+
+                    return true;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar o Id");
+                }
+            }
+        }
+
+        public static EntradaModel RetornarEntrada(int id)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var entrada = context.EntradaCXT.Where(x => x.EntradaId == id).FirstOrDefault();
+                    return entrada;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar registros");
+                }
+            }
+        }
+
     }
 }

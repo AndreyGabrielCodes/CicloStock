@@ -14,7 +14,7 @@ namespace CicloStock.Operacoes
             {
                 try
                 {
-                    var locacao = context.LocacaoCXT.Where(x => Convert.ToInt32(x.LocacaoId) == id).FirstOrDefault();
+                    var locacao = context.LocacaoCXT.Where(x => x.LocacaoId == id).FirstOrDefault();
                     return locacao;
                 }
                 catch
@@ -66,24 +66,6 @@ namespace CicloStock.Operacoes
                 try
                 {
                     var lista = context.LocacaoCXT.Where(x => x.Situacao != Enumerados.SituacaoLocacao.Inativo).ToList();
-                    return lista;
-                }
-                catch
-                {
-                    throw new Exception($"Não foi possível visualizar registros");
-                }
-            }
-        }
-
-        public static List<LocacaoModel> ListarLocacoesSemProduto()
-        {
-            using (var context = new CicloStockContext())
-            {
-                try
-                {
-                    var lista = context.LocacaoCXT
-                        .Where(x => x.Situacao != Enumerados.SituacaoLocacao.Inativo && x.Produto == null)
-                        .ToList();
                     return lista;
                 }
                 catch

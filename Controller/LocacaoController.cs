@@ -93,7 +93,7 @@ namespace CicloStock.Controller
 
         public static string ExibirLocacoesSemProduto()
         {
-            List<LocacaoModel> lista = LocacaoOP.ListarLocacoesSemProduto();
+            var lista = LocacaoOP.ListarLocacoes().Where(x=> x.Produto == null && x.ProdutoId == null).ToList();
 
             if (lista.Count == 0 || lista == null)
                 throw new Exception("| Não há locações sem produto");
