@@ -42,6 +42,23 @@ namespace CicloStock.Operacoes
             }
         }
 
+        public static void AlterarSituacao(EntradaModel entrada, Enumerados.SituacaoEntrada situacaoNova)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    entrada.Situacao = situacaoNova;
+                    context.EntradaCXT.Update(entrada);
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível alterar");
+                }
+            }
+        }
+
         public static void Remover(EntradaModel entrada)
         {
             using (var context = new CicloStockContext())
@@ -66,7 +83,7 @@ namespace CicloStock.Operacoes
             {
                 try
                 {
-                    var lista = context.EntradaCXT.Where(x => x.Situacao != Enumerados.SituacaoEntrada.Cancelado).ToList();
+                    var lista = context.EntradaCXT.ToList();
                     return lista;
                 }
                 catch

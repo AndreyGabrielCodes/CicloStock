@@ -46,8 +46,6 @@ namespace CicloStock.Views
             Console.WriteLine("| Digite o nome do produto");
             var nome = Console.ReadLine();
 
-            Console.Clear();
-
             ProdutoController.InserirProduto(nome);
 
             Info.ExibirEspera("| Produto inserido!");

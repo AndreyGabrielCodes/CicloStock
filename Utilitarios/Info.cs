@@ -2,7 +2,8 @@
 {
     public class Info
     {
-        private const int _tempoTotalSegundos = 3;
+        private const int _tempoTotalSegundos = 4;
+        private const string _mensagemContinuar = "ENTER para continuar...";
 
         public static void ExibirEspera(string texto)
         {
@@ -20,6 +21,12 @@
 
                 Thread.Sleep(1000);
             }
+        }
+
+        public static void ExibirContinuar()
+        {
+            Console.WriteLine(_mensagemContinuar);
+            Console.ReadKey();
         }
     }
 }

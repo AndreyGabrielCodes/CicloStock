@@ -23,14 +23,14 @@ namespace CicloStock.Controller
         
         public static string ExibirProdutos()
         {
-            List<ProdutoModel> lista = ProdutoOP.ListarProdutos();
+            List<ProdutoModel> lista = ProdutoOP.ListarProdutos()
+                .Where(x => x.Situacao != Enumerados.SituacaoProduto.Inativo)
+                .OrderByDescending(x => x.Situacao)
+                .ToList();
 
             if (lista.Count == 0 || lista == null)
                 throw new Exception("| Não há produtos cadastrados");
 
-            lista.OrderByDescending(x => x.Situacao);
-
-            string texto = "";
             string situacaoTexto = "";
 
             StringBuilder sb = new StringBuilder();
@@ -56,10 +56,9 @@ namespace CicloStock.Controller
 
             ProdutoModel produtoNovo = new ProdutoModel();
             produtoNovo.Descricao = descricao;
-            produtoNovo.Situacao = Utilitarios.Enumerados.SituacaoProduto.Ativo;
+            produtoNovo.Situacao = Enumerados.SituacaoProduto.Ativo;
 
-            if (!ProdutoOP.Inserir(produtoNovo))
-                throw new Exception("| Não foi possível inserir o produto");
+            ProdutoOP.Inserir(produtoNovo);
         }
 
         public static void ExcluirProduto(int id)

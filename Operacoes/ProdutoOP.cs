@@ -28,7 +28,7 @@ namespace CicloStock.Operacoes
             {
                 try
                 {
-                    var lista = context.ProdutoCXT.Where(x => x.Situacao != Enumerados.SituacaoProduto.Inativo).ToList();
+                    var lista = context.ProdutoCXT.ToList();
                     return lista;
                 }
                 catch
@@ -57,7 +57,7 @@ namespace CicloStock.Operacoes
             }
         }
         
-        public static bool Inserir(ProdutoModel produto)
+        public static void Inserir(ProdutoModel produto)
         {
             using (var context = new CicloStockContext())
             {
@@ -71,8 +71,6 @@ namespace CicloStock.Operacoes
                     throw new Exception($"Não foi possível inserir o registro");
                 }
             }
-
-            return true;
         }
 
         public static void Alterar(ProdutoModel produto, string descricao)
