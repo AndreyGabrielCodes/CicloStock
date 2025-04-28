@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CicloStock.Controller;
+using CicloStock.Utilitarios;
 
 namespace CicloStock.Views
 {
@@ -14,16 +11,18 @@ namespace CicloStock.Views
             Console.WriteLine("|");
             Console.WriteLine("| 1 - Visualizar");
             Console.WriteLine("| 2 - Adicionar");
-            Console.WriteLine("| 3 - Cancelar");
-            Console.WriteLine("| 4 - Voltar");
+            Console.WriteLine("| 3 - Inserir Produtos");
+            Console.WriteLine("| 4 - Cancelar");
+            Console.WriteLine("| 5 - Voltar");
             var opcao = int.Parse(Console.ReadLine());
             Console.Clear();
             switch (opcao)
             {
                 case 1: Visualizar(); Console.ReadKey(); break;
                 case 2: Adicionar(); break;
-                case 3: Cancelar(); break;
-                case 4: break;
+                case 3: InserirProdutosLote(); break;
+                case 4: Cancelar(); break;
+                case 5: break;
                 default: throw new Exception();
             }
         }
@@ -31,48 +30,62 @@ namespace CicloStock.Views
         {
             //Controller de listagem aqui
         }
+
         private static void Adicionar()
         {
-            //Controller de entradas em andamento aqui
+            Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
 
-            Console.WriteLine("| Digite o ID da entrada:");
+            Console.WriteLine("\n| Digite o ID da entrada:");
             var idEntrada = int.Parse(Console.ReadLine());
-            Console.Clear();
 
-            //Controller com a quantidade de itens do lote
-            
-            var listaProdutos = new List<int>();
+            EntradaController.VerificarIdInserido(idEntrada);
+
+            EntradaController.InserirLote(idEntrada); //não finalizado
+
+            Info.ExibirEspera($"| Lote criado com sucesso para a entrada {idEntrada}!");
+        }
+
+        private static void InserirProdutosLote()
+        {
+            Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
+
+            Console.WriteLine("\n| Digite o ID da entrada:");
+            var idEntrada = int.Parse(Console.ReadLine());
+
+            EntradaController.VerificarIdInserido(idEntrada);
+
+            Console.WriteLine(EntradaController.ExibirLotesEntrada(idEntrada));
+
+            Console.WriteLine("\n| Digite o ID do lote da entrada:");
+            var idEntradaLote = int.Parse(Console.ReadLine());
+
+            EntradaController.VerificarIdLoteInserido(idEntrada);
+
             var adicionarProduto = true;
-            while (adicionarProduto) // alterar aqui para quantidade dos itens do lote
+            while (adicionarProduto)
             {
                 try
                 {
-                    //Controller de exibição dos itens da entrada que não estão em lotes
+                    Console.Clear();
+                    
+                    Console.WriteLine(ProdutoController.ExibirProdutos());
 
-                    Console.WriteLine("| Digite o ID do produto:");
+                    Console.WriteLine("\n| Digite o ID do produto:");
                     var idProduto = int.Parse(Console.ReadLine());
+
                     Console.WriteLine("| Digite a quantidade do produto:");
                     var quantidadeProduto = int.Parse(Console.ReadLine());
 
                     //Controller para adicionar o produto ao lote
 
-                    Console.WriteLine("| 1 - Adicionar produto (ID)");
+                    Console.WriteLine("| 1 - Adicionar mais produtos");
                     Console.WriteLine("| 2 - Finalizar");
                     var opcao = int.Parse(Console.ReadLine());
 
-                    //Controller de verificação de produto válido
-
-                    Console.Clear();
-                    switch (opcao)
-                    {
-                        case 1:
-                            listaProdutos.Add(opcao);
-                            break;
-                        case 2:
-                            adicionarProduto = false;
-                            break;
-                        default: throw new Exception();
-                    }
+                    if (opcao == 2)
+                        adicionarProduto = false;
+                    else if (opcao != 1)
+                        throw new Exception();
                 }
                 catch
                 {
@@ -80,10 +93,9 @@ namespace CicloStock.Views
                     Console.WriteLine("Opção ou valor inserido é inválido");
                     Console.ReadKey();
                 }
-
             }
 
-            //Controller para adicionar item a entrada
+            Info.ExibirEspera($"| Produtos inseridos com sucesso na entrada {idEntrada}!");
         }
         private static void Cancelar()
         {
@@ -100,6 +112,8 @@ namespace CicloStock.Views
                 var id = int.Parse(Console.ReadLine());
                 //Controller aqui
             }
+
+            Info.ExibirEspera("| Entrada cancelada!");
         }        
     }
 }

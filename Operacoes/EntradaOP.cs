@@ -6,6 +6,7 @@ namespace CicloStock.Operacoes
 {
     public class EntradaOP
     {
+        #region Entrada
         public static void Inserir(EntradaModel entrada)
         {
             using (var context = new CicloStockContext())
@@ -128,5 +129,46 @@ namespace CicloStock.Operacoes
             }
         }
 
+        #endregion
+
+        #region Lote
+
+        public static List<EntradaLoteModel> ListarLotes()
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var lista = context.EntradaLoteCXT.ToList();
+                    return lista;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível visualizar registros");
+                }
+            }
+        }
+
+        public static bool VerificarIdLote(int id)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var entrada = context.EntradaLoteCXT.Where(x => x.EntradaId == id && x.Situacao != Enumerados.SituacaoEntradaLote.Cancelado).FirstOrDefault();
+
+                    if (entrada == null)
+                        return false;
+
+                    return true;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar o Id");
+                }
+            }
+        }
+
+        #endregion
     }
 }

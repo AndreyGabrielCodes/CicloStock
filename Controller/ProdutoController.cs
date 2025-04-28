@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using CicloStock.Models;
 using CicloStock.Operacoes;
 using CicloStock.Utilitarios;
-using Microsoft.Extensions.Primitives;
 
 namespace CicloStock.Controller
 {
