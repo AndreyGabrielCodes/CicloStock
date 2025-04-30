@@ -40,7 +40,10 @@ namespace CicloStock.Views
 
             EntradaController.VerificarIdInserido(idEntrada);
 
-            EntradaController.InserirLote(idEntrada); //não finalizado
+            Console.WriteLine("\n| Digite o nome do lote:");
+            var nome = Console.ReadLine();
+
+            EntradaController.InserirLote(idEntrada, nome);
 
             Info.ExibirEspera($"| Lote criado com sucesso para a entrada {idEntrada}!");
         }
@@ -59,7 +62,7 @@ namespace CicloStock.Views
             Console.WriteLine("\n| Digite o ID do lote da entrada:");
             var idEntradaLote = int.Parse(Console.ReadLine());
 
-            EntradaController.VerificarIdLoteInserido(idEntrada);
+            EntradaController.VerificarIdLoteInserido(idEntradaLote);
 
             var adicionarProduto = true;
             while (adicionarProduto)
@@ -76,7 +79,9 @@ namespace CicloStock.Views
                     Console.WriteLine("| Digite a quantidade do produto:");
                     var quantidadeProduto = int.Parse(Console.ReadLine());
 
-                    //Controller para adicionar o produto ao lote
+                    EntradaController.InserirProdutoLote(idEntradaLote, idProduto, quantidadeProduto);
+
+                    Console.Clear();
 
                     Console.WriteLine("| 1 - Adicionar mais produtos");
                     Console.WriteLine("| 2 - Finalizar");

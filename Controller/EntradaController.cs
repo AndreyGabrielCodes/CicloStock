@@ -130,14 +130,47 @@ namespace CicloStock.Controller
                 throw new Exception("| Produto com Id inserido não existe");
         }
 
-        public static void InserirLote(int idEntrada)
+        public static void InserirLote(int idEntrada, string descricao)
         {
+            var entrada = EntradaOP.RetornarEntrada(idEntrada);
 
+            var entradaLote = new EntradaLoteModel();
+            entradaLote.Entrada = entrada;
+            entradaLote.EntradaId = entrada.EntradaId;
+            entradaLote.Descricao = descricao;
+            entradaLote.Situacao = Enumerados.SituacaoEntradaLote.Aberto;
+
+            EntradaOP.InserirLote(entradaLote);
         }
 
-        public static void InserirProdutoLote()
+        public static void InserirProdutoLote(int idEntradaLote, int idProduto, int quantidadeProduto)
         {
+            ProdutoController.VerificarIdInserido(idProduto);
+            VerificarIdLoteInserido(idEntradaLote);
 
+            var produto = ProdutoOP.RetornarProduto(idProduto);
+            var entradaLote = EntradaOP.RetornarEntradaLote(idEntradaLote);
+
+            AlterarSituacao(entradaLote.Entrada.EntradaId, Enumerados.SituacaoEntrada.EmAndamento);
+            AlterarSituacaoLote(entradaLote.EntradaLoteId, Enumerados.SituacaoEntradaLote.EmAndamento);
+
+            var entradaNova = new EntradaLoteItemModel();
+            entradaNova.EntradaLote = entradaLote;
+            entradaNova.EntradaLoteId = entradaLote.EntradaLoteId;
+            entradaNova.Produto = produto;
+            entradaNova.ProdutoId = produto.ProdutoId;
+            entradaNova.Quantidade = quantidadeProduto;
+
+            EntradaOP.InserirItemLote(entradaNova);
+        }
+
+        public static void AlterarSituacaoLote(int idEntradaLote, Enumerados.SituacaoEntradaLote situacaoNova)
+        {
+            VerificarIdLoteInserido(idEntradaLote);
+
+            var entrada = EntradaOP.RetornarEntradaLote(idEntradaLote);
+
+            EntradaOP.AlterarSituacaoLote(entrada, situacaoNova);
         }
 
         #endregion

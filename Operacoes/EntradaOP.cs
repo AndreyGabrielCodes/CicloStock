@@ -155,7 +155,7 @@ namespace CicloStock.Operacoes
             {
                 try
                 {
-                    var entrada = context.EntradaLoteCXT.Where(x => x.EntradaId == id && x.Situacao != Enumerados.SituacaoEntradaLote.Cancelado).FirstOrDefault();
+                    var entrada = context.EntradaLoteCXT.Where(x => x.EntradaLoteId == id && x.Situacao != Enumerados.SituacaoEntradaLote.Cancelado).FirstOrDefault();
 
                     if (entrada == null)
                         return false;
@@ -165,6 +165,84 @@ namespace CicloStock.Operacoes
                 catch
                 {
                     throw new Exception($"Não foi possível consultar o Id");
+                }
+            }
+        }
+
+        public static void InserirLote(EntradaLoteModel entradaLote)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    context.EntradaLoteCXT.Add(entradaLote);
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível inserir o registro");
+                }
+            }
+        }
+
+        public static void InserirItemLote(EntradaLoteItemModel entradaLoteItem)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var entradaLoteItemExistente = context.EntradaLoteItemCXT
+                        .Where(x => x.EntradaLoteId == entradaLoteItem.EntradaLoteId && x.ProdutoId == entradaLoteItem.ProdutoId)
+                        .FirstOrDefault();
+
+                    if (entradaLoteItemExistente != null)
+                    {
+                        entradaLoteItemExistente.Quantidade += entradaLoteItem.Quantidade;
+                        context.EntradaLoteItemCXT.Update(entradaLoteItemExistente);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        context.EntradaLoteItemCXT.Add(entradaLoteItem);
+                        context.SaveChanges();
+                    }
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível inserir o registro");
+                }
+            }
+        }
+
+        public static EntradaLoteModel RetornarEntradaLote(int id)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var entrada = context.EntradaLoteCXT.Where(x => x.EntradaLoteId == id).FirstOrDefault();
+                    return entrada;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível consultar registros");
+                }
+            }
+        }
+
+        public static void AlterarSituacaoLote(EntradaLoteModel entrada, Enumerados.SituacaoEntradaLote situacaoNova)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    entrada.Situacao = situacaoNova;
+                    context.EntradaLoteCXT.Update(entrada);
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível alterar");
                 }
             }
         }
