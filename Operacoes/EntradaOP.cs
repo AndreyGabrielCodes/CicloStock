@@ -149,6 +149,22 @@ namespace CicloStock.Operacoes
             }
         }
 
+        public static List<EntradaLoteItemModel> ListarLotesItens()
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var lista = context.EntradaLoteItemCXT.ToList();
+                    return lista;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível visualizar registros");
+                }
+            }
+        }
+
         public static bool VerificarIdLote(int id)
         {
             using (var context = new CicloStockContext())
@@ -189,7 +205,7 @@ namespace CicloStock.Operacoes
             }
         }
 
-        public static void InserirItemLote(EntradaLoteItemModel entradaLoteItem)
+        public static void InserirItemLote(EntradaLoteItemModel entradaLoteItem, EntradaLoteModel entradaLote, ProdutoModel produto)
         {
             using (var context = new CicloStockContext())
             {
@@ -207,11 +223,17 @@ namespace CicloStock.Operacoes
                     }
                     else
                     {
+                        context.EntradaLoteCXT.Attach(entradaLote);
+                        context.ProdutoCXT.Attach(produto);
+                        entradaLoteItem.EntradaLote = entradaLote;
+                        entradaLoteItem.EntradaLoteId = entradaLote.EntradaLoteId;
+                        entradaLoteItem.Produto = produto;
+                        entradaLoteItem.ProdutoId = produto.ProdutoId;
                         context.EntradaLoteItemCXT.Add(entradaLoteItem);
                         context.SaveChanges();
                     }
                 }
-                catch
+                catch 
                 {
                     throw new Exception($"Não foi possível inserir o registro");
                 }

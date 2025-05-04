@@ -19,7 +19,7 @@ namespace CicloStock.Views
 
             switch (opcao)
             {
-                case 1: Visualizar(); Console.ReadKey();break;
+                case 1: Visualizar();break;
                 case 2: Adicionar(); break;
                 case 3: Cancelar(); break;
                 case 4: break;

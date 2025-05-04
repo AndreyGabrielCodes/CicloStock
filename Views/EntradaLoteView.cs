@@ -18,7 +18,7 @@ namespace CicloStock.Views
             Console.Clear();
             switch (opcao)
             {
-                case 1: Visualizar(); Console.ReadKey(); break;
+                case 1: Visualizar(); break;
                 case 2: Adicionar(); break;
                 case 3: InserirProdutosLote(); break;
                 case 4: Cancelar(); break;
@@ -28,14 +28,57 @@ namespace CicloStock.Views
         }
         private static void Visualizar()
         {
-            //Controller de listagem aqui
+            Console.WriteLine("| VISUALIZAR ");
+            Console.WriteLine("|");
+            Console.WriteLine("| 1 - Lotes");
+            Console.WriteLine("| 2 - Itens de lotes");
+            Console.WriteLine("| 3 - Voltar");
+            var opcao = int.Parse(Console.ReadLine());
+            Console.Clear();
+            switch (opcao)
+            {
+                case 1: VisualizarLotes(); break;
+                case 2: VisualizarLotesItens(); break;
+                case 3: break;
+                default: throw new Exception();
+            }
         }
+
+        private static void VisualizarLotes()
+        {
+            Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
+
+            Console.WriteLine("| Digite o ID da entrada");
+            var idEntrada = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(EntradaController.ExibirLotesEntrada(idEntrada));
+
+            Info.ExibirContinuar();
+        }
+
+        private static void VisualizarLotesItens()
+        {
+            Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
+
+            Console.WriteLine("| Digite o ID da entrada");
+            var idEntrada = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(EntradaController.ExibirLotesEntrada(idEntrada));
+
+            Console.WriteLine("| Digite o ID do lote:");
+            var idEntradaLote = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(EntradaController.ExibirLotesItensEntrada(idEntradaLote));
+
+            Info.ExibirContinuar();
+        }
+
 
         private static void Adicionar()
         {
             Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
 
-            Console.WriteLine("| Digite o ID da entrada:");
+            Console.WriteLine("| Digite o ID da entrada para adicionar lote:");
             var idEntrada = int.Parse(Console.ReadLine());
 
             EntradaController.VerificarIdInserido(idEntrada);
@@ -52,14 +95,14 @@ namespace CicloStock.Views
         {
             Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
 
-            Console.WriteLine("\n| Digite o ID da entrada:");
+            Console.WriteLine("| Digite o ID da entrada:");
             var idEntrada = int.Parse(Console.ReadLine());
 
             EntradaController.VerificarIdInserido(idEntrada);
 
             Console.WriteLine(EntradaController.ExibirLotesEntrada(idEntrada));
 
-            Console.WriteLine("\n| Digite o ID do lote da entrada:");
+            Console.WriteLine("| Digite o ID do lote da entrada:");
             var idEntradaLote = int.Parse(Console.ReadLine());
 
             EntradaController.VerificarIdLoteInserido(idEntradaLote);
@@ -73,7 +116,7 @@ namespace CicloStock.Views
                     
                     Console.WriteLine(ProdutoController.ExibirProdutos());
 
-                    Console.WriteLine("\n| Digite o ID do produto:");
+                    Console.WriteLine("| Digite o ID do produto:");
                     var idProduto = int.Parse(Console.ReadLine());
 
                     Console.WriteLine("| Digite a quantidade do produto:");
@@ -94,9 +137,7 @@ namespace CicloStock.Views
                 }
                 catch
                 {
-                    Console.Clear();
-                    Console.WriteLine("Opção ou valor inserido é inválido");
-                    Console.ReadKey();
+                    Info.ExibirEspera($"| Opção ou valor inserido é inválido! Tente Novamente");
                 }
             }
 
