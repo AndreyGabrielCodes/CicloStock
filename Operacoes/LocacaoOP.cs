@@ -1,8 +1,6 @@
 ﻿using CicloStock.Mapping;
 using CicloStock.Models;
 using CicloStock.Utilitarios;
-using System.ComponentModel.Design;
-using System.Globalization;
 
 namespace CicloStock.Operacoes
 {

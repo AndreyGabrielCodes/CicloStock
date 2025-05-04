@@ -135,12 +135,10 @@ namespace CicloStock.Controller
             var entrada = EntradaOP.RetornarEntrada(idEntrada);
 
             var entradaLote = new EntradaLoteModel();
-            entradaLote.Entrada = entrada;
-            entradaLote.EntradaId = entrada.EntradaId;
             entradaLote.Descricao = descricao;
             entradaLote.Situacao = Enumerados.SituacaoEntradaLote.Aberto;
 
-            EntradaOP.InserirLote(entradaLote);
+            EntradaOP.InserirLote(entradaLote, entrada);
         }
 
         public static void InserirProdutoLote(int idEntradaLote, int idProduto, int quantidadeProduto)

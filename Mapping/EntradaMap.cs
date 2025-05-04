@@ -61,8 +61,7 @@ namespace CicloStock.Mapping
 
             builder.HasOne(x => x.Entrada)
                 .WithMany(x => x.EntradaLotes)
-                .HasForeignKey(x => x.EntradaId)
-                .IsRequired(false);
+                .HasForeignKey(x => x.EntradaId);
         }
     }
 

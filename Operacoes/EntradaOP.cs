@@ -169,12 +169,16 @@ namespace CicloStock.Operacoes
             }
         }
 
-        public static void InserirLote(EntradaLoteModel entradaLote)
+        public static void InserirLote(EntradaLoteModel entradaLote, EntradaModel entrada)
         {
             using (var context = new CicloStockContext())
             {
                 try
                 {
+                    //Attach faz com que o EF entenda a entrada como já existente, ao invés de criar uma nova
+                    context.EntradaCXT.Attach(entrada);
+                    entradaLote.Entrada = entrada;
+                    entradaLote.EntradaId = entrada.EntradaId;
                     context.EntradaLoteCXT.Add(entradaLote);
                     context.SaveChanges();
                 }

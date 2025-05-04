@@ -35,12 +35,12 @@ namespace CicloStock.Views
         {
             Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
 
-            Console.WriteLine("\n| Digite o ID da entrada:");
+            Console.WriteLine("| Digite o ID da entrada:");
             var idEntrada = int.Parse(Console.ReadLine());
 
             EntradaController.VerificarIdInserido(idEntrada);
 
-            Console.WriteLine("\n| Digite o nome do lote:");
+            Console.WriteLine("\n| Digite o nome para o lote:");
             var nome = Console.ReadLine();
 
             EntradaController.InserirLote(idEntrada, nome);
