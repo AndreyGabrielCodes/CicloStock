@@ -1,6 +1,7 @@
 ﻿using CicloStock.Models;
 using CicloStock.Operacoes;
 using CicloStock.Utilitarios;
+using Microsoft.Extensions.Primitives;
 using System.Text;
 
 namespace CicloStock.Controller
@@ -27,15 +28,7 @@ namespace CicloStock.Controller
 
             foreach (EntradaModel entrada in lista)
             {
-                if (entrada.Situacao == Enumerados.SituacaoEntrada.Aberto)
-                    situacaoTexto = "Aberto";
-                else if (entrada.Situacao == Enumerados.SituacaoEntrada.EmAndamento)
-                    situacaoTexto = "Em Andamento";
-                else if (entrada.Situacao == Enumerados.SituacaoEntrada.Concluido)
-                    situacaoTexto = "Concluido";
-                else if (entrada.Situacao == Enumerados.SituacaoEntrada.Cancelado)
-                    situacaoTexto = "Cancelado";
-                sb.Append("| " + entrada.EntradaId + " | " + situacaoTexto + " | " + entrada.Descricao + "\n");
+                sb.Append("| " + entrada.EntradaId + " | " + entrada.Situacao + " | " + entrada.Descricao + "\n");
             }
 
             return sb.ToString();
@@ -106,16 +99,39 @@ namespace CicloStock.Controller
                 .ToList();
 
             if (lista.Count == 0 || lista == null)
-                throw new Exception("| Não há entradas cadastradas");
+                throw new Exception("| Não há lotes cadastrados");
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("| Id | Situação | Nome\n");
+            sb.Append("| Id | Situação | Nome | Id Entrada\n");
             sb.Append("");
 
             foreach (EntradaLoteModel entrada in lista)
             {
-                sb.Append("| " + entrada.EntradaId + " | " + entrada.Descricao + "\n");
+                sb.Append("| " + entrada.EntradaLoteId + " | " + entrada.Situacao + " | " + entrada.Descricao + " | " + entrada.EntradaId + "\n");
+            }
+
+            return sb.ToString();
+        }
+
+        public static string ExibirLotesItensEntrada(int idEntradaLote)
+        {
+            var lista = EntradaOP.ListarLotesItens()
+                .Where(x => x.EntradaLoteId == idEntradaLote)
+                .OrderByDescending(x => x.EntradaLoteId)
+                .ToList();
+
+            if (lista.Count == 0 || lista == null)
+                throw new Exception("| Não há lotes com itens cadastrados");
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("| Id | Produto | Quantidade | Id EntradaLote\n");
+            sb.Append("");
+
+            foreach (EntradaLoteItemModel entrada in lista)
+            {
+                sb.Append("| " + entrada.EntradaLoteId + " | " + entrada.ProdutoId + " | " + entrada.Quantidade + " | " + entrada.EntradaLoteId + "\n");
             }
 
             return sb.ToString();
@@ -127,7 +143,7 @@ namespace CicloStock.Controller
                 throw new Exception("| Id inserido inválido");
 
             if (!EntradaOP.VerificarIdLote(id))
-                throw new Exception("| Produto com Id inserido não existe");
+                throw new Exception("| EntradaLote com Id inserido não existe");
         }
 
         public static void InserirLote(int idEntrada, string descricao)
@@ -149,17 +165,13 @@ namespace CicloStock.Controller
             var produto = ProdutoOP.RetornarProduto(idProduto);
             var entradaLote = EntradaOP.RetornarEntradaLote(idEntradaLote);
 
-            AlterarSituacao(entradaLote.Entrada.EntradaId, Enumerados.SituacaoEntrada.EmAndamento);
+            AlterarSituacao(entradaLote.EntradaId, Enumerados.SituacaoEntrada.EmAndamento);
             AlterarSituacaoLote(entradaLote.EntradaLoteId, Enumerados.SituacaoEntradaLote.EmAndamento);
 
             var entradaNova = new EntradaLoteItemModel();
-            entradaNova.EntradaLote = entradaLote;
-            entradaNova.EntradaLoteId = entradaLote.EntradaLoteId;
-            entradaNova.Produto = produto;
-            entradaNova.ProdutoId = produto.ProdutoId;
             entradaNova.Quantidade = quantidadeProduto;
 
-            EntradaOP.InserirItemLote(entradaNova);
+            EntradaOP.InserirItemLote(entradaNova, entradaLote, produto);
         }
 
         public static void AlterarSituacaoLote(int idEntradaLote, Enumerados.SituacaoEntradaLote situacaoNova)
@@ -169,6 +181,16 @@ namespace CicloStock.Controller
             var entrada = EntradaOP.RetornarEntradaLote(idEntradaLote);
 
             EntradaOP.AlterarSituacaoLote(entrada, situacaoNova);
+        }
+
+        public static void CancelarLote(int idEntradaLote)
+        {
+            VerificarIdLoteInserido(idEntradaLote);
+            var entradaLote = EntradaOP.RetornarEntradaLote(idEntradaLote);
+
+            EntradaOP.ExcluirItensLote(entradaLote);
+
+            EntradaOP.AlterarSituacaoLote(entradaLote, Enumerados.SituacaoEntradaLote.Cancelado);
         }
 
         #endregion

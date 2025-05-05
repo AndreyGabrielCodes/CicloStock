@@ -273,6 +273,43 @@ namespace CicloStock.Operacoes
             }
         }
 
+        public static void ExcluirItensLote(EntradaLoteModel entrada)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var itens = context.EntradaLoteItemCXT.Where(x => x.EntradaLoteId == entrada.EntradaLoteId).ToList();
+                    context.RemoveRange(itens);
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível alterar");
+                }
+            }
+        }
+
+        public static bool ProdutoExisteLoteItem(ProdutoModel produto)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    var produtoEmLote = context.EntradaLoteItemCXT.Where(x => x.Produto.ProdutoId == produto.ProdutoId).FirstOrDefault();
+
+                    if (produtoEmLote != null)
+                        return true;
+
+                    return false;
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível alterar");
+                }
+            }
+        }
+
         #endregion
     }
 }

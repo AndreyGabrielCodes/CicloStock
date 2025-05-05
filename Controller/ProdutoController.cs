@@ -62,6 +62,11 @@ namespace CicloStock.Controller
             
             ProdutoModel produtoAExcluir = ProdutoOP.RetornarProduto(id);
 
+            bool produtoExiste = EntradaOP.ProdutoExisteLoteItem(produtoAExcluir);
+
+            if (produtoExiste)
+                throw new Exception("Produto contido em um lote, não é possível excluir");
+
             ProdutoOP.Excluir(produtoAExcluir);
         }
 

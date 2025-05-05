@@ -153,13 +153,21 @@ namespace CicloStock.Views
             if (opcao == 1)
             {
                 Console.Clear();
-                Visualizar();
-                Console.WriteLine("| Digite o ID a cancelar");
-                var id = int.Parse(Console.ReadLine());
-                //Controller aqui
-            }
 
-            Info.ExibirEspera("| Entrada cancelada!");
+                Console.WriteLine(EntradaController.ExibirEntradasPorSituacao(Enumerados.SituacaoEntrada.Aberto));
+
+                Console.WriteLine("| Digite o ID da entrada");
+                var idEntrada = int.Parse(Console.ReadLine());
+
+                Console.WriteLine(EntradaController.ExibirLotesEntrada(idEntrada));
+
+                Console.WriteLine("| Digite o ID do lote a cancelar");
+                var idEntradaLote = int.Parse(Console.ReadLine());
+
+                EntradaController.CancelarLote(idEntradaLote);
+
+                Info.ExibirEspera("| Lote de entrada cancelada!");
+            }
         }        
     }
 }

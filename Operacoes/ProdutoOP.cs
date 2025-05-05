@@ -98,13 +98,6 @@ namespace CicloStock.Operacoes
                 {
                     var produtoEmLote = context.EntradaLoteItemCXT.Where(x => x.Produto == produto).FirstOrDefault();
                     
-                    if(produtoEmLote != null)
-                    {
-                        produto.Situacao = Enumerados.SituacaoProduto.Inativo;
-                        context.SaveChanges();
-                        throw new Exception("Produto contido em um lote, ele foi inativado");
-                    }
-                        
                     context.ProdutoCXT.Remove(produto);
                     context.SaveChanges();
                 }
