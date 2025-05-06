@@ -26,19 +26,13 @@ namespace CicloStock.Controller
             if (lista.Count == 0 || lista == null)
                 throw new Exception("| Não há produtos cadastrados");
 
-            string situacaoTexto = "";
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append("| Id | Situação | Nome\n");
             sb.Append("");
             foreach (ProdutoModel produto in lista)
             {
-                if (produto.Situacao == Enumerados.SituacaoProduto.Inativo)
-                    situacaoTexto = "Inativo";
-                else if (produto.Situacao == Enumerados.SituacaoProduto.Ativo)
-                    situacaoTexto = "Ativo";
-                sb.Append("| " + produto.ProdutoId + " | " + situacaoTexto + " | " + produto.Descricao + "\n");
+                sb.Append("| " + produto.ProdutoId + " | " + produto.Situacao + " | " + produto.Descricao + "\n");
             }
 
             return sb.ToString();

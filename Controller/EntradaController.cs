@@ -19,8 +19,6 @@ namespace CicloStock.Controller
             if (lista.Count == 0 || lista == null)
                 throw new Exception("| Não há entradas cadastradas");
 
-            string situacaoTexto = "";
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append("| Id | Situação | Nome\n");
@@ -85,6 +83,27 @@ namespace CicloStock.Controller
             var entrada = EntradaOP.RetornarEntrada(idEntrada);
 
             EntradaOP.AlterarSituacao(entrada, situacaoNova);
+        }
+
+        public static void Cancelar(int idEntrada)
+        {
+            AlterarSituacao(idEntrada, Enumerados.SituacaoEntrada.Cancelado);
+
+            var lotesEntrada = EntradaOP
+                                    .ListarLotes()
+                                    .Where(x=> x.EntradaId == idEntrada 
+                                        && x.Situacao != Enumerados.SituacaoEntradaLote.Cancelado)
+                                    .ToList();
+
+            if (lotesEntrada.Count > 0)
+            {
+                foreach (var lote in lotesEntrada)
+                {
+                    EntradaOP.ExcluirItensLote(lote);
+
+                    EntradaOP.AlterarSituacaoLote(lote, Enumerados.SituacaoEntradaLote.Cancelado);
+                }
+            }
         }
 
         #endregion

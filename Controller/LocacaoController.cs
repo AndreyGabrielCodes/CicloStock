@@ -64,14 +64,12 @@ namespace CicloStock.Controller
         }
         public static string ExibirLocacoes()
         {
-            List<LocacaoModel> lista = LocacaoOP.ListarLocacoes();
+            var lista = LocacaoOP.ListarLocacoes();
 
             if (lista.Count == 0 || lista == null)
                 throw new Exception("| Não há locações cadastradas");
 
             lista.OrderBy(x => x.Situacao);
-
-            string situacaoTexto = string.Empty;
 
             StringBuilder sb = new StringBuilder();
 
@@ -79,13 +77,7 @@ namespace CicloStock.Controller
             sb.Append("");
             foreach (LocacaoModel locacao in lista)
             {
-                if (locacao.Situacao == Enumerados.SituacaoLocacao.Inativo)
-                    situacaoTexto = "Inativo";
-                else if (locacao.Situacao == Enumerados.SituacaoLocacao.Principal)
-                    situacaoTexto = "Principal";
-                else if (locacao.Situacao == Enumerados.SituacaoLocacao.Alternativo)
-                    situacaoTexto = "Alternativo";
-                sb.Append("| " + locacao.LocacaoId + " | " + situacaoTexto + " | " + locacao.Descricao + "\n");
+                sb.Append("| " + locacao.LocacaoId + " | " + locacao.Situacao + " | " + locacao.Descricao + "\n");
             }
 
             return sb.ToString();
@@ -93,14 +85,13 @@ namespace CicloStock.Controller
 
         public static string ExibirLocacoesSemProduto()
         {
-            var lista = LocacaoOP.ListarLocacoes().Where(x=> x.Produto == null && x.ProdutoId == null).ToList();
+            var lista = LocacaoOP.ListarLocacoes()
+                            .Where(x=> x.Produto == null && x.ProdutoId == null)
+                            .OrderByDescending(x => x.LocacaoId)
+                            .ToList();
 
             if (lista.Count == 0 || lista == null)
                 throw new Exception("| Não há locações sem produto");
-
-            lista.OrderByDescending(x => x.LocacaoId);
-
-            string situacaoTexto = "";
 
             StringBuilder sb = new StringBuilder();
 
@@ -108,11 +99,7 @@ namespace CicloStock.Controller
             sb.Append("");
             foreach (LocacaoModel locacao in lista)
             {
-                if (locacao.Situacao == Utilitarios.Enumerados.SituacaoLocacao.Principal)
-                    situacaoTexto = "Principal";
-                else if (locacao.Situacao == Utilitarios.Enumerados.SituacaoLocacao.Alternativo)
-                    situacaoTexto = "Alternativo";
-                sb.Append("| " + locacao.LocacaoId + " | " + situacaoTexto + " | " + locacao.Descricao + "\n");
+                sb.Append("| " + locacao.LocacaoId + " | " + locacao.Situacao + " | " + locacao.Descricao + "\n");
             }
 
             return sb.ToString();
