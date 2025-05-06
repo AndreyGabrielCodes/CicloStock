@@ -63,6 +63,7 @@ namespace CicloStock.Controller
             EntradaModel entrada = new EntradaModel();
             entrada.Descricao = descricao;
             entrada.Situacao = Enumerados.SituacaoEntrada.Aberto;
+            entrada.DataInicio = DateTime.Now;
 
             EntradaOP.Inserir(entrada);
         }
@@ -172,6 +173,7 @@ namespace CicloStock.Controller
             var entradaLote = new EntradaLoteModel();
             entradaLote.Descricao = descricao;
             entradaLote.Situacao = Enumerados.SituacaoEntradaLote.Aberto;
+            entradaLote.DataInicio = DateTime.Now;
 
             EntradaOP.InserirLote(entradaLote, entrada);
         }
@@ -187,10 +189,32 @@ namespace CicloStock.Controller
             AlterarSituacao(entradaLote.EntradaId, Enumerados.SituacaoEntrada.EmAndamento);
             AlterarSituacaoLote(entradaLote.EntradaLoteId, Enumerados.SituacaoEntradaLote.EmAndamento);
 
-            var entradaNova = new EntradaLoteItemModel();
-            entradaNova.Quantidade = quantidadeProduto;
+            var entradaLoteItem = new EntradaLoteItemModel();
+            entradaLoteItem.Quantidade = quantidadeProduto;
 
-            EntradaOP.InserirItemLote(entradaNova, entradaLote, produto);
+            EntradaOP.InserirItemLote(entradaLoteItem, entradaLote, produto);
+
+            var entrada = EntradaOP.RetornarEntrada(entradaLote.EntradaId);
+
+            //Atualização das situações e datas
+
+            EntradaModel entradaAlterada = new EntradaModel();
+
+            entradaAlterada.Descricao = entrada.Descricao;
+            entradaAlterada.Situacao = entrada.Situacao;
+            entradaAlterada.DataInicio = entrada.DataInicio;
+            entradaAlterada.DataFim = DateTime.Now;
+
+            EntradaOP.Alterar(entrada, entradaAlterada);
+
+            EntradaLoteModel entradaLoteAlterada = new EntradaLoteModel();
+
+            entradaLoteAlterada.Descricao = entradaLote.Descricao;
+            entradaLoteAlterada.Situacao = entradaLote.Situacao;
+            entradaLoteAlterada.DataInicio = entradaLote.DataInicio;
+            entradaLoteAlterada.DataFim = DateTime.Now;
+
+            EntradaOP.AlterarLote(entradaLote, entradaLoteAlterada);
         }
 
         public static void AlterarSituacaoLote(int idEntradaLote, Enumerados.SituacaoEntradaLote situacaoNova)

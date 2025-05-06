@@ -240,6 +240,26 @@ namespace CicloStock.Operacoes
             }
         }
 
+        public static void AlterarLote(EntradaLoteModel entrada, EntradaLoteModel entradaNova)
+        {
+            using (var context = new CicloStockContext())
+            {
+                try
+                {
+                    entrada.Descricao = entradaNova.Descricao;
+                    entrada.Situacao = entradaNova.Situacao;
+                    entrada.DataInicio = entradaNova.DataInicio;
+                    entrada.DataFim = entradaNova.DataFim;
+                    context.EntradaLoteCXT.Update(entrada);
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    throw new Exception($"Não foi possível alterar");
+                }
+            }
+        }
+
         public static EntradaLoteModel RetornarEntradaLote(int id)
         {
             using (var context = new CicloStockContext())
