@@ -21,12 +21,12 @@ namespace CicloStock.Controller
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("| Id | Situação | Nome\n");
+            sb.Append("| Id | Situação | Nome | Data Inicio | Data Fim\n");
             sb.Append("");
 
             foreach (EntradaModel entrada in lista)
             {
-                sb.Append("| " + entrada.EntradaId + " | " + entrada.Situacao + " | " + entrada.Descricao + "\n");
+                sb.Append("| " + entrada.EntradaId + " | " + entrada.Situacao + " | " + entrada.Descricao + " | " + entrada?.DataInicio + " | " + entrada?.DataFim + "\n");
             }
 
             return sb.ToString();
@@ -44,12 +44,12 @@ namespace CicloStock.Controller
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("| Id | Situação | Nome\n");
+            sb.Append("| Id | Situação | Nome | Data Inicio | Data Fim\n");
             sb.Append("");
 
             foreach (EntradaModel entrada in lista)
             {
-                sb.Append("| " + entrada.EntradaId + " | " + entrada.Descricao + "\n");
+                sb.Append("| " + entrada.EntradaId + " | " + entrada.Descricao + " | " + entrada?.DataInicio + " | " + entrada?.DataFim + "\n");
             }
 
             return sb.ToString();
@@ -123,12 +123,12 @@ namespace CicloStock.Controller
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("| Id | Situação | Nome | Id Entrada\n");
+            sb.Append("| Id | Situação | Nome | Id Entrada | Data Incio | Data Fim\n");
             sb.Append("");
 
             foreach (EntradaLoteModel entrada in lista)
             {
-                sb.Append("| " + entrada.EntradaLoteId + " | " + entrada.Situacao + " | " + entrada.Descricao + " | " + entrada.EntradaId + "\n");
+                sb.Append("| " + entrada.EntradaLoteId + " | " + entrada.Situacao + " | " + entrada.Descricao + " | " + entrada.EntradaId + " | " + entrada?.DataInicio +" | " + entrada?.DataFim + "\n");
             }
 
             return sb.ToString();
